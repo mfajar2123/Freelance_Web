@@ -92,7 +92,7 @@
             <h1>Discover The Perfect <span>Freelance</span> Solution</h1>
             <h2>Instantly!</h2>
             <div class="text-center text-lg-start">
-              <a href="login.php" class="btn-get-started scrollto">Get Started</a>
+              <a href="login.php" class="btn-get-started scrollto">Login Here</a>
             </div>
           </div>
         </div>
