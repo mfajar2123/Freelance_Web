@@ -74,6 +74,10 @@
     <div class="form-container">
       <h2>Register</h2>
       <form action="process_registration.php" method="post">
+      <div class="form-group">
+          <label for="registername">Name</label>
+          <input type="text" class="form-control" id="registername" name="name" placeholder="Enter Name" required>
+        </div>
         <div class="form-group">
           <label for="registerFullName">Username</label>
           <input type="text" class="form-control" id="registerFullName" name="username" placeholder="Enter username" required>

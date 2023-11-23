@@ -27,6 +27,40 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Explore</a>
                     </li>
+                    <?php
+                        $no = 1;
+                        $query = 'SELECT * FROM tb_users';
+                        $result = mysqli_query($conn,$query);
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                        foreach ($result as $data) {
+                        echo "$data["name"]"
+                        }
+                        </a>
+                    </li>
+                    
+
+            <tbody>
+                <?php
+                foreach ($result as $data) {
+                        echo "
+                        <tr>
+                            <th scope = 'row'>". $no++ ."</th>
+                                <td>". $data["nis"]."</td>
+                                <td>". $data["nama"]."</td>
+                                <td>". $data["kelas"]."</td>
+                                <td>
+                                    <a class='btn btn-success btn-action' onclick href='update.php?id={$data['id']}'>Edit</a>
+                                    <a class='btn btn-danger btn-action' onclick href='delete.php?id={$data['id']}'>Hapus</a>
+                                </td>
+                        </tr>
+                        ";              
+                }      
+                ?>
+                
+            </tbody>
+                
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="assets/img/menu.png" alt="" width="32" height="32" class="rounded-circle">

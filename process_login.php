@@ -12,9 +12,13 @@ $result = $conn->query($query);
 if ($result->num_rows == 1) {
     $user = $result->fetch_assoc();
     $_SESSION['user_id'] = $user['id'];
-    $_SESSION['is_freelancer'] = $user['is_freelancer'];
-    header("Location: dashboard.php");
+    if ($user['is_freelancer'] == 1) {
+        header("Location: dashboardfreelance.php");
+    } else {
+        header("Location: dashboard.php");
+    }
 } else {
     echo "Gagal login";
 }
+
 ?>
