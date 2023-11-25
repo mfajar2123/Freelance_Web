@@ -1,10 +1,11 @@
 <?php
-                    session_start();
-                    if (!isset($_SESSION['user_id'])) {
-                        header("Location: login.php");
-                        exit();
-                    }
+    session_start();
+        if (!isset($_SESSION['user_id'])) {
+                header("Location: login.php");
+                exit();
+            }
 ?>
+
 <html>
 <head>
     <!-- Bootstrap CDN -->
@@ -12,9 +13,17 @@
     <link href="assets/img/logoo.png" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/dashboard.css">
-    
-       
+    <style>
+    .custom-text {
+        font-size: 16px; /* Ubah sesuai dengan ukuran yang diinginkan */
+        width: 250px; /* Ubah sesuai dengan lebar yang diinginkan */
+        height: 80px; /* Ubah sesuai dengan tinggi yang diinginkan */
+        max-width: 300px; /* Batas maksimum lebar */
+        min-height: 50px; /* Batas minimum tinggi */
+        }
+    </style>
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -82,25 +91,49 @@
                     <button id="filter">Filter</button>
                 </div>
                 <!-- Service cards -->
-                <div class="row" id="services">
-                    <div class="col-md-3">
-                        <div class="card service-card" data-category="web" data-skill="html">
-                            <img src="assets/img/contoh.jpg" class="card-img-top" alt="Service 1">
-                            <div class="card-profile d-flex align-items-center m-lg-2">
-                                <img src="assets/img/download.jpg" class="card-profile-img rounded-circle" alt="Profile 9" style="width: 35px; height: 35px;">
-                                <span class="card-profile-name ms-2" style="font-weight: bold;">Muhamad Fajar</span>
+                <div class="row">
+                <?php
+                    // Gunakan $_SESSION['user_id'] untuk mendapatkan ID pengguna yang login
+                    $user_id = $_SESSION['user_id'];
+
+                    // Koneksi ke database
+                    include 'config.php';
+
+                    // Query untuk mendapatkan pekerjaan berdasarkan ID pengguna
+                    $query = "SELECT * FROM pekerjaan WHERE user_id = $user_id";
+                    $result = $conn->query($query);
+
+                    // Periksa apakah ada pekerjaan yang ditemukan
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            // Mengisi konten kartu dengan data pekerjaan
+                    ?>
+                            <div class="col-md-3">
+                                <div class="card service-card" data-category="web" data-skill="html">
+                                    <img src="assets/img/<?php echo $row['foto']; ?>">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $row['jenispekerjaan']; ?></h5>
+                                        <p class="card-text custom-text"><?php echo $row['deskripsi']; ?></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span>Price: $<?php echo $row['harga']; ?></span>
+                                        <a href="order_detail.php?id_pekerjaan=<?php echo $row['id_pekerjaan']; ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Order</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Web Development</h5>
-                                <p class="card-text">I can create responsive and dynamic websites using the latest technologies.</p>
-                            </div>
-                            <div class="card-footer">
-                                <span>Price: $50</span>
-                                <a href="order_detail.php" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Order</a>
-                            </div>
-                        </div>
+                            
+                    <?php
+                        }
+                    } else {
+                        echo "Tidak ada pekerjaan yang tersedia.";
+                    }
+
+                    // Tutup koneksi ke database
+                    $conn->close();
+                    ?>
                     </div>
-                    </div>
+
                 </div>
             </div>
         </div>
