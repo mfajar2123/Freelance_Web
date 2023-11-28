@@ -8,12 +8,17 @@ var filter = document.getElementById("filter");
 var services = document.getElementById("services");
 var cards = services.getElementsByClassName("service-card");
 
+// ...
+
 // Add a click event listener to the filter button
 filter.addEventListener("click", function() {
     // Get the filter values
     var categoryValue = category.value;
     var skillValue = skill.value;
     var keywordValue = keyword.value.toLowerCase();
+
+    // Store the original order of cards
+    var originalOrder = Array.from(cards);
 
     // Loop through the cards and show or hide them based on the filter values
     for (var i = 0; i < cards.length; i++) {
@@ -34,5 +39,13 @@ filter.addEventListener("click", function() {
         } else {
             card.style.display = "none";
         }
+    }
+
+    // Clear the services container before appending rearranged cards
+    services.innerHTML = '';
+
+    // Rearrange the cards based on the original order
+    for (var i = 0; i < originalOrder.length; i++) {
+        services.appendChild(originalOrder[i]);
     }
 });
