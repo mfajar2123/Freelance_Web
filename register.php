@@ -74,10 +74,10 @@
     <div class="form-container">
       <h2>Register</h2>
       <form action="process_registration.php" method="post">
-      <div class="form-group">
+      <!-- <div class="form-group">
           <label for="registername">Name</label>
           <input type="text" class="form-control" id="registername" name="name" placeholder="Enter Name" required>
-        </div>
+        </div> -->
         <div class="form-group">
           <label for="registerFullName">Username</label>
           <input type="text" class="form-control" id="registerFullName" name="username" placeholder="Enter username" required>
@@ -90,10 +90,11 @@
           <label for="registerPassword">Password</label>
           <input type="password" class="form-control" id="registerPassword" name="password" placeholder="Password" required>
         </div>
-        <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="is_freelancer" name="is_freelancer">
-        <label class="form-check-label" for="is_freelancer">I am a freelancer</label>
-      </div>
+        <label for="role">Role:</label><br>
+        <select name="role" id="role">
+            <option value="klien">Klien</option>
+            <option value="freelancer">Freelancer</option>
+        </select><br><br>
         <button type="submit" class="btn btn-register">Register</button>
         <p class="form-text">Already have an account? <a href="login.php">Login here</a></p>
       </form>

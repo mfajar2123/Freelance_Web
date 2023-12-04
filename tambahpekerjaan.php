@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 // Gunakan $_SESSION['user_id'] untuk mendapatkan ID pengguna yang login
 $user_id = $_SESSION['user_id'];
 
+
 // Sekarang Anda dapat menggunakan $user_id pada form tambah pekerjaan
 // ...
 ?>
@@ -91,10 +92,6 @@ $user_id = $_SESSION['user_id'];
       <h2>Tambah Pekerjaan</h2>
       <form action="process_tambahpekerjaan.php" method="post">
         <div class="form-group">
-            <label for="nama">Nama</label>
-            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
-        </div>
-        <div class="form-group">
             <label for="nohp">No Handphone</label>
             <input type="text" class="form-control" id="nohp" name="nohp" placeholder="No Handphone" required>
         </div>
@@ -114,7 +111,11 @@ $user_id = $_SESSION['user_id'];
             <label for="foto">Foto Produk</label>
             <input type="text" class="form-control" id="foto" name="foto" placeholder="Foto" required>
         </div>
-        <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" class="form-control" id="skills" name="skills" placeholder="Skills" required>
+        </div>
+        <input type="hidden" id="user_id" name="freelancer_id" value="<?= $user_id ?>">
         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" name="daftar">Tambah</button>
         <a href="dashboardfreelance.php" class="btn btn-warning">Kembali</a>
     </form>

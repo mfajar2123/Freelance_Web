@@ -27,7 +27,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">TalentaHub</a>
+            <a class="navbar-brand" href="#">Freelancer Dashboard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -100,7 +100,7 @@
                     include 'config.php';
 
                     // Query untuk mendapatkan pekerjaan berdasarkan ID pengguna
-                    $query = "SELECT * FROM pekerjaan WHERE user_id = $user_id";
+                    $query = "SELECT * FROM pekerjaan WHERE freelancer_id = $user_id";
                     $result = $conn->query($query);
 
                     // Periksa apakah ada pekerjaan yang ditemukan
@@ -113,12 +113,12 @@
                                     <img src="assets/img/<?php echo $row['foto']; ?>">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title"><?php echo $row['jenispekerjaan']; ?></h5>
-                                        <p class="card-text custom-text"><?php echo $row['deskripsi']; ?></p>
+                                        <h5 class="card-title"><?php echo $row['jenis_pekerjaan']; ?></h5>
+                                        <p class="card-text custom-text"><?php echo $row['deskripsi_order']; ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <span>Price: $<?php echo $row['harga']; ?></span>
-                                        <a href="order_detail.php?id_pekerjaan=<?php echo $row['id_pekerjaan']; ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Order</a>
+                                        <span>Price: $<?php echo $row['skills']; ?></span>
+                                        <a href="order_detail.php?id_pekerjaan=<?php echo $row['id_pekerjaan']; ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
                                     </div>
                                 </div>
                             </div>

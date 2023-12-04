@@ -28,13 +28,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Bootslander
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  
 </head>
 
 <body>

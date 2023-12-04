@@ -1,7 +1,7 @@
-<?php
+?<?php
 session_start();
 
-include 'config.php'; // Memuat file config.php untuk koneksi
+include 'config.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -12,7 +12,12 @@ $result = $conn->query($query);
 if ($result->num_rows == 1) {
     $user = $result->fetch_assoc();
     $_SESSION['user_id'] = $user['id'];
-    if ($user['is_freelancer'] == 1) {
+    $_SESSION['user_name'] = $user['name'];
+    $_SESSION['user_foto'] = $user['foto_profil'];
+    
+    // Menyimpan nama pengguna dalam sesi
+
+    if ($user['role'] == 'freelancer') {
         header("Location: dashboardfreelance.php");
     } else {
         header("Location: dashboard.php");
@@ -20,5 +25,4 @@ if ($result->num_rows == 1) {
 } else {
     echo "Gagal login";
 }
-
 ?>
