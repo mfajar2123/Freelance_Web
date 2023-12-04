@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(function (response) {
             var data = response.data;
 
+<<<<<<< HEAD
             data.forEach(function (pekerjaan) {
                 var card = document.createElement("div");
                 card.classList.add("col-md-3");
@@ -33,4 +34,46 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(function (error) {
             console.log(error);
         });
+=======
+// ...
+
+// Add a click event listener to the filter button
+filter.addEventListener("click", function() {
+    // Get the filter values
+    var categoryValue = category.value;
+    var skillValue = skill.value;
+    var keywordValue = keyword.value.toLowerCase();
+
+    // Store the original order of cards
+    var originalOrder = Array.from(cards);
+
+    // Loop through the cards and show or hide them based on the filter values
+    for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        var cardCategory = card.getAttribute("data-category");
+        var cardSkill = card.getAttribute("data-skill");
+        var cardTitle = card.getElementsByClassName("card-title")[0].textContent.toLowerCase();
+        var cardText = card.getElementsByClassName("card-text")[0].textContent.toLowerCase();
+
+        // Check if the card matches the filter values
+        var matchCategory = (categoryValue == "" || categoryValue == cardCategory);
+        var matchSkill = (skillValue == "" || skillValue == cardSkill);
+        var matchKeyword = (keywordValue == "" || cardTitle.includes(keywordValue) || cardText.includes(keywordValue));
+
+        // Show or hide the card based on the match results
+        if (matchCategory && matchSkill && matchKeyword) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    }
+
+    // Clear the services container before appending rearranged cards
+    services.innerHTML = '';
+
+    // Rearrange the cards based on the original order
+    for (var i = 0; i < originalOrder.length; i++) {
+        services.appendChild(originalOrder[i]);
+    }
+>>>>>>> 90ca44eedd0b23bdca3b23866e594cee07405be7
 });

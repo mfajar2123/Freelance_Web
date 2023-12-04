@@ -1,5 +1,9 @@
 
 
+        .link-other {
+            text-decoration: none;
+            color: black;
+        }
         /* layout */
         .service-card {
             width: 100%;
