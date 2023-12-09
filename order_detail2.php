@@ -217,7 +217,7 @@ if ($result->num_rows > 0) {
                         <div class="mb-3">
                             <label for="deskripsiOrder" class="form-label">Deskripsi Order</label>
                             <textarea class="form-control" name="deskripsiOrder" id="deskripsiOrder" rows="3"
-                                placeholder="Deskripsikan aplikasi yang Anda inginkan"></textarea>
+                                placeholder="Deskripsikan aplikasi yang Anda inginkan" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="fileOrder" class="form-label">Upload File Order</label>

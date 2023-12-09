@@ -146,8 +146,7 @@ if ($result->num_rows > 0) {
                         <div class="mt-5 text-center">
 
                             <button class="btn btn-primary profile-button" type="submit"
-                                onclick="return confirm('Apakah Anda yakin ingin menyimpan perubahan?')">Save
-                                Photo</button>
+                                onclick="return confirm('Apakah Anda yakin ingin menyimpan perubahan?')">Save</button>
 
                         </div>
                     </form>
