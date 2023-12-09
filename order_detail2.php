@@ -41,184 +41,17 @@ if ($result->num_rows > 0) {
     <title>Order Detail - <?php echo $pekerjaan[0]['name']?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="your-custom-styles.css"> <!-- Add your custom CSS file -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-    }
+    <link rel="stylesheet" href="./assets/css/order_detail2.css">
+    <link rel="stylesheet" href="./assets/css/dashboard.css">
 
-    .profile-section,
-    .order-info,
-    .portfolio-section,
-    .skills-section {
-        background-color: #ffffff;
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-    }
 
-    .profile-section img {
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        margin-right: 20px;
-    }
-
-    .profile-info {
-        flex: 1;
-    }
-
-    .profile-name {
-        font-weight: bold;
-        font-size: 24px;
-        margin-bottom: 5px;
-    }
-
-    .profile-title {
-        font-size: 18px;
-        color: #666;
-    }
-
-    .order-info h4,
-    .portfolio-section h4,
-    .skills-section h4 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    .order-info p,
-    .portfolio-section p {
-        font-size: 16px;
-        color: #666;
-    }
-
-    .portfolio-img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-
-    .skills-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .skills-list li {
-        display: inline-block;
-        background-color: #1dbf73;
-        color: #ffffff;
-        font-size: 14px;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 5px 10px;
-        margin: 0 5px 5px 0;
-    }
-
-    .btn-primary {
-        background-color: #1dbf73;
-        border-color: #1dbf73;
-    }
-
-    .btn-primary:hover {
-        background-color: #149f5b;
-        border-color: #149f5b;
-    }
-
-    @media (max-width: 768px) {
-        .col-md-4 {
-            width: 100%;
-        }
-    }
-
-    /* Navbar styles */
-    .navbar {
-        background-color: #fff;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 20px 0;
-    }
-
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 24px;
-    }
-
-    .navbar-toggler {
-        border: none;
-    }
-
-    .navbar-nav .nav-item {
-        margin-right: 20px;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: 18px;
-        color: #333;
-        transition: color 0.3s ease-in-out;
-    }
-
-    .navbar-nav .nav-link:hover {
-        color: #1dbf73;
-    }
-
-    /* Profile section styles */
-    .profile-section {
-        background-color: #f9f9f9;
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-    }
-
-    .profile-section .profile-name {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    /* Other section styles */
-    /* Adjust these based on your preferences */
-    /* ... */
-
-    /* Media queries */
-    @media (max-width: 768px) {
-        .col-md-4 {
-            width: 100%;
-        }
-    }
-
-    .job-title {
-        font-size: 20px;
-        color: #333;
-        margin-bottom: 8px;
-    }
-
-    .job-title span {
-        font-weight: bold;
-        color: #1dbf73;
-    }
-
-    .portfolio-img {
-        max-width: 20%;
-        /* Ubah persentase sesuai preferensi */
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-    </style>
 </head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">Your Brand</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -235,6 +68,42 @@ if ($result->num_rows > 0) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.php">TalentaHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Explore</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="assets/img/menu.png" alt="" width="32" height="32" class="rounded-circle">
+                            <!-- <span class="badge">1</span> -->
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="riwayat_order.php">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Messages</a></li>
+                            <li><a class="dropdown-item" href="#">Notifications</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="logout.php">Sign Out</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

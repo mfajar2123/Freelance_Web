@@ -1,18 +1,24 @@
 <?php
 include 'config.php';
 
-// Query untuk mengambil data pekerjaan dari tabel pekerjaan
-$sql = "SELECT pekerjaan.*, users.name, users.foto_profil, users.no_hp  FROM pekerjaan JOIN users on pekerjaan.freelancer_id=users.id";
-// $sql = "SELECT * FROM pekerjaan";
+// Query untuk mengambil data pekerjaan dari tabel pekerjaan dengan tambahan kolom status_pekerjaan
+$sql = "SELECT pekerjaan.*, users.name, users.foto_profil, users.no_hp  
+        FROM pekerjaan 
+        JOIN users ON pekerjaan.freelancer_id = users.id";
+
 $result = $conn->query($sql);
 
-// Buat array untuk menyimpan data pekerjaan
 $pekerjaan = [];
 
-// Tampilkan data pekerjaan sebagai array JSON
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $pekerjaan[] = $row;
+        // Di sini, Anda dapat menentukan logika untuk status pekerjaan
+        // Misalnya, Anda menambahkan status_pekerjaan sebagai contoh 'belum dipesan'
+        // Anda dapat mengubahnya sesuai kebutuhan aplikasi Anda
+        if ($row['status_pekerjaan'] === 'belum dipesan') {
+            // Tambahkan pekerjaan ke dalam array $pekerjaan
+            $pekerjaan[] = $row;
+        }
     }
     echo json_encode($pekerjaan); // Mengirim data dalam bentuk JSON
 } else {
@@ -20,4 +26,5 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
+
 ?>

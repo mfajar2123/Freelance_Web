@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 11:07 AM
+-- Generation Time: Dec 09, 2023 at 07:00 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,7 +55,12 @@ INSERT INTO `order_table` (`id_order`, `klien_id`, `id_pekerjaan`, `deskripsi_or
 (13, 2, 1, 'sdadas', 'qwe.png', 'Menunggu Pembayaran', '2023-12-04'),
 (14, 2, 4, 'sdada', 'Screenshot 2023-11-07 190100.png', 'Menunggu Pembayaran', '2023-12-04'),
 (15, 2, 2, 'sss', 'Screenshot (122).png', 'Menunggu Pembayaran', '2023-12-04'),
-(16, 1, 1, 'das', 'Screenshot 2023-11-05 162919.png', 'Dalam Pengerjaan', '2023-12-04');
+(16, 1, 1, 'das', 'Screenshot 2023-11-05 162919.png', 'Dalam Pengerjaan', '2023-12-04'),
+(17, 9, 3, 'saya hamil', 'rtos_code.png', 'Dalam Pengerjaan', '2023-12-07'),
+(19, 9, 5, 'desssss', 'http-client_code.png', 'Menunggu Pembayaran', '2023-12-07'),
+(20, 9, 2, 'kocak kocak', 'json.png', 'Dalam Pengerjaan', '2023-12-08'),
+(21, 9, 5, 'dsadasdasdasd', 'wifi.png', 'Menunggu Pembayaran', '2023-12-08'),
+(26, 9, 3, 'fdsfdsfs', 'profillink.jpg', 'Dalam Pengerjaan', '2023-12-08');
 
 -- --------------------------------------------------------
 
@@ -70,19 +75,20 @@ CREATE TABLE `pekerjaan` (
   `deskripsi_order` text NOT NULL,
   `foto` varchar(255) NOT NULL,
   `skills` varchar(255) NOT NULL,
-  `harga` varchar(255) NOT NULL
+  `harga` varchar(255) NOT NULL,
+  `status_pekerjaan` varchar(50) DEFAULT 'belum dipesan'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pekerjaan`
 --
 
-INSERT INTO `pekerjaan` (`id_pekerjaan`, `freelancer_id`, `jenis_pekerjaan`, `deskripsi_order`, `foto`, `skills`, `harga`) VALUES
-(1, 7, 'gamr', 'dsaasd', 'logoo.png', 'sda', '232'),
-(2, 5, 'sdads', 'sdadsa', 'logoo.png', 'dsadsa', '2321'),
-(3, 7, 'Dokter Kandungan', 'Saya Bisa cek kandungan', 'logoo.png', 'cek kandungan', 'gratis'),
-(4, 7, 'kang service', 'gasgas', 'kocak.png', 'sdadsa12414', '124141'),
-(5, 8, 'Gamers', 'Jasa gendong bermain game', 'kocak.png', 'turu', '50.000.000');
+INSERT INTO `pekerjaan` (`id_pekerjaan`, `freelancer_id`, `jenis_pekerjaan`, `deskripsi_order`, `foto`, `skills`, `harga`, `status_pekerjaan`) VALUES
+(1, 7, 'gamr', 'dsaasd', 'logoo.png', 'sda', '232', 'belum dipesan'),
+(2, 5, 'sdads', 'sdadsa', 'logoo.png', 'dsadsa', '2321', 'belum dipesan'),
+(3, 7, 'Dokter Kandungan', 'Saya Bisa cek kandungan', 'logoo.png', 'cek kandungan', 'gratis', 'sudah dipesan'),
+(4, 7, 'kang service', 'gasgas', 'kocak.png', 'sdadsa12414', '124141', 'belum dipesan'),
+(5, 8, 'Gamers', 'Jasa gendong bermain game', 'kocak.png', 'turu', '50.000.000', 'belum dipesan');
 
 -- --------------------------------------------------------
 
@@ -114,7 +120,10 @@ INSERT INTO `pembayaran` (`id`, `id_order`, `metode_pembayaran`, `bukti_pembayar
 (10, 11, '', 'Screenshot (97).png'),
 (11, 12, '', 'Screenshot (119).png'),
 (12, 3, '', 'Screenshot (115).png'),
-(13, 16, '', 'Screenshot (113).png');
+(13, 16, '', 'Screenshot (113).png'),
+(14, 17, '', 'wifi.png'),
+(15, 20, '', 'mqtt_client.jpeg'),
+(16, 26, '', 'Screenshot 2023-12-07 191758.png');
 
 -- --------------------------------------------------------
 
@@ -130,6 +139,9 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `foto_profil` varchar(255) NOT NULL,
   `no_hp` varchar(255) NOT NULL,
+  `education` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `city_address` varchar(255) NOT NULL,
   `role` enum('klien','freelancer') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -137,14 +149,16 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `foto_profil`, `no_hp`, `role`) VALUES
-(1, 'jawir sunda', 'jawir', 'jawir', 'jawir@gmail.com', 'logoo.png', '124153345', 'klien'),
-(2, 'aceng', 'aceng', 'aceng', 'aceng', 'kocak.png', '53252352', 'klien'),
-(3, 'aa', 'aa', 'aa', 'aa', 'kocak.png', '41432', 'freelancer'),
-(4, 'bbb', 'bbb', 'bbb', 'bbb@gmail.com', 'kocak.png', '414141231', 'klien'),
-(5, 'qq', 'qq', 'qq', 'qq@gmail.com', 'kocak.png', '21311414', 'freelancer'),
-(7, 'abdi', 'abdi', 'abdi', 'abdi@gmail.com', 'kocak.png', '414214141', 'freelancer'),
-(8, 'dimas', 'dimas', 'dimas', 'dimas@gmail.com', 'logoo.png', '412414', 'freelancer');
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `foto_profil`, `no_hp`, `education`, `country`, `city_address`, `role`) VALUES
+(1, 'jawir sunda', 'jawir', 'jawir', 'jawir@gmail.com', 'logoo.png', '124153345', '', '', '', 'klien'),
+(2, 'aceng', 'aceng', 'aceng', 'aceng', 'kocak.png', '53252352', '', '', '', 'klien'),
+(3, 'aa', 'aa', 'aa', 'aa', 'kocak.png', '41432', '', '', '', 'freelancer'),
+(4, 'bbb', 'bbb', 'bbb', 'bbb@gmail.com', 'kocak.png', '414141231', '', '', '', 'klien'),
+(5, 'qq', 'qq', 'qq', 'qq@gmail.com', 'kocak.png', '21311414', '', '', '', 'freelancer'),
+(7, 'abdi', 'abdi', 'abdi', 'abdi@gmail.com', 'kocak.png', '414214141', '', '', '', 'freelancer'),
+(8, 'dimas', 'dimas', 'dimas', 'dimas@gmail.com', 'logoo.png', '412414', '', '', '', 'freelancer'),
+(9, 'Muhamad Fajar', 'klien', 'klien', 'mfajar22222222@gmail.com', 'download.jpg', '082143651192', 'UPI', 'Indonesia', 'Bandung', 'klien'),
+(10, 'Wira nagara selatan', 'wira', 'wira', 'wira@yahoo.com', 'download.jpg', '09090209', '', '', '', 'klien');
 
 --
 -- Indexes for dumped tables
@@ -186,7 +200,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -198,13 +212,13 @@ ALTER TABLE `pekerjaan`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

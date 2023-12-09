@@ -35,7 +35,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <img src="assets/img/menu.png" alt="" width="32" height="32" class="rounded-circle">
-                            <span class="badge">1</span>
+                            <!-- <span class="badge">1</span> -->
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="riwayat_order.php">Orders</a></li>
@@ -44,7 +44,9 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item"
+                                    href="profile.php?id_user=<?php echo $_SESSION['user_id']; ?>">Profile</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

@@ -54,8 +54,19 @@ $stmt->bind_param("siss", $deskripsiOrder, $klienId, $idPekerjaan, $file);
 
 if ($stmt->execute()) {
     $lastOrderId = $conn->insert_id;
-    header("Location: halaman_pembayaran.php?order_id=$lastOrderId");
-    exit();
+    // Ubah status_pekerjaan menjadi 'sudah dipesan'
+    $queryUpdateStatus = "UPDATE pekerjaan SET status_pekerjaan = 'sudah dipesan' WHERE id_pekerjaan = ?";
+    $stmtUpdate = $conn->prepare($queryUpdateStatus);
+    $stmtUpdate->bind_param("i", $idPekerjaan);
+
+    if ($stmtUpdate->execute()) {
+        // Jika berhasil mengubah status_pekerjaan, redirect ke halaman pembayaran
+        header("Location: halaman_pembayaran.php?order_id=$lastOrderId");
+        exit();
+    } else {
+        echo "Gagal mengubah status pekerjaan.";
+        exit();
+    }
 } else {
     echo "Error: " . $queryInsertOrder . "<br>" . $conn->error;
 }

@@ -47,7 +47,7 @@ $conn->close();
     /* Add your custom styles here */
     body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+        background-color: rgba(1, 4, 136, 0.9);
     }
 
     .payment-container {
