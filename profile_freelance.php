@@ -72,7 +72,7 @@ if (isset($_GET['user_id'])) {
                         class="font-weight-bold"><?= $user[0]['name'] ?>
                     </span><span class="text-black-50"><?= $user[0]['email'] ?></span><span> </span>
 
-                    <form action="process_update_fotoProfil.php" method="POST" enctype="multipart/form-data">
+                    <form action="process_update_fotoProfilfreelance.php" method="POST" enctype="multipart/form-data">
                         <div class="mt-3">
                             <label for="editPhoto" class="btn btn-link">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -105,7 +105,7 @@ if (isset($_GET['user_id'])) {
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
-                    <form method="POST" action="process_update_profile.php">
+                    <form method="POST" action="process_update_profile_freelance.php">
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <label class="labels">Name</label>
