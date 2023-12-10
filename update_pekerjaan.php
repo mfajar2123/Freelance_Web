@@ -23,6 +23,7 @@ if (isset($_GET['id_pekerjaan'])) {
             $deskripsi_order = $_POST['deskripsi_order'];
             $skills = $_POST['skills'];
             $harga = $_POST['harga'];
+            $nohp = $_POST['nohp'];
 
             // Mengelola upload foto
             $foto = $pekerjaanDetail['foto']; // Foto sebelumnya
@@ -40,9 +41,9 @@ if (isset($_GET['id_pekerjaan'])) {
             }
 
             // TODO: Lakukan query UPDATE ke database menggunakan data yang baru
-            $updateQuery = "UPDATE pekerjaan SET jenis_pekerjaan=?, deskripsi_order=?, skills=?, harga=?, foto=? WHERE id_pekerjaan=?";
+            $updateQuery = "UPDATE pekerjaan SET jenis_pekerjaan=?, deskripsi_order=?, skills=?, harga=?, foto=?, nohp=? WHERE id_pekerjaan=?";
             $stmtUpdate = $conn->prepare($updateQuery);
-            $stmtUpdate->bind_param("sssssi", $jenis_pekerjaan, $deskripsi_order, $skills, $harga, $foto, $id_pekerjaan);
+            $stmtUpdate->bind_param("sssssis", $jenis_pekerjaan, $deskripsi_order, $skills, $harga, $foto, $nohp, $id_pekerjaan);
 
             if ($stmtUpdate->execute()) {
                 // Jika berhasil memperbarui, arahkan kembali ke halaman dashboardfreelance.php
@@ -87,6 +88,10 @@ if (isset($_GET['id_pekerjaan'])) {
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga</label>
                 <input type="text" class="form-control" id="harga" name="harga" value="<?= $pekerjaanDetail['harga'] ?>">
+            </div>
+            <div class="mb-3">
+                <label for="nohp" class="form-label">No Handphone</label>
+                <input type="text" class="form-control" id="nohp" name="nohp" value="<?= $pekerjaanDetail['nohp'] ?>">
             </div>
 
             <div class="mb-3">

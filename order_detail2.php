@@ -140,7 +140,7 @@ if ($result->num_rows > 0) {
 
                     <!-- Buttons -->
                     <div class="d-grid gap-2">
-                        <a href="https://wa.me/<?= $pekerjaan[0]['no_hp'] ?>" class="btn btn-primary mt-3">Contact me
+                        <a href="https://api.whatsapp.com/send?phone=62<?= $pekerjaan[0]['nohp'] ?>" class="btn btn-primary mt-3" target="_blank">Contact me
                             (Whatsapp)</a>
 
                         <button class="btn btn-success mt-2" data-bs-toggle="modal"
