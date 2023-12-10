@@ -51,7 +51,7 @@
                             <li><a class="dropdown-item" href="#">Notifications</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="profile_freelance.php?user_id=<?php echo $_SESSION['user_id']; ?>">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Help & Support</a></li>
