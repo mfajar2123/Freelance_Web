@@ -120,6 +120,7 @@
                                         <span>Price: $<?php echo $row['harga']; ?></span>
                                         <a href="update_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
 
+
                                     </div>
                                 </div>
                             </div>

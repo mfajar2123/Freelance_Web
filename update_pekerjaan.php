@@ -3,7 +3,7 @@ session_start();
 include 'config.php';
 
 // Pastikan parameter id_pekerjaan ada
-if(isset($_GET['id_pekerjaan'])) {
+if (isset($_GET['id_pekerjaan'])) {
     $id_pekerjaan = $_GET['id_pekerjaan'];
 
     // Query untuk mendapatkan data pekerjaan berdasarkan ID
@@ -15,7 +15,43 @@ if(isset($_GET['id_pekerjaan'])) {
 
     if ($result->num_rows > 0) {
         $pekerjaanDetail = $result->fetch_assoc();
-        // Memulai konten HTML
+
+        // Memproses formulir update pekerjaan
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Tangani pembaruan data pekerjaan di sini
+            $jenis_pekerjaan = $_POST['jenis_pekerjaan'];
+            $deskripsi_order = $_POST['deskripsi_order'];
+            $skills = $_POST['skills'];
+            $harga = $_POST['harga'];
+
+            // Mengelola upload foto
+            $foto = $pekerjaanDetail['foto']; // Foto sebelumnya
+
+            // Jika ada file foto yang diupload, proses upload dan gunakan nama file yang baru
+            if (!empty($_FILES['foto']['name'])) {
+                $uploadDir = 'assets/img/';
+                $uploadFile = $uploadDir . basename($_FILES['foto']['name']);
+
+                if (move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)) {
+                    $foto = $_FILES['foto']['name'];
+                } else {
+                    echo "Upload failed.";
+                }
+            }
+
+            // TODO: Lakukan query UPDATE ke database menggunakan data yang baru
+            $updateQuery = "UPDATE pekerjaan SET jenis_pekerjaan=?, deskripsi_order=?, skills=?, harga=?, foto=? WHERE id_pekerjaan=?";
+            $stmtUpdate = $conn->prepare($updateQuery);
+            $stmtUpdate->bind_param("sssssi", $jenis_pekerjaan, $deskripsi_order, $skills, $harga, $foto, $id_pekerjaan);
+
+            if ($stmtUpdate->execute()) {
+                // Jika berhasil memperbarui, arahkan kembali ke halaman dashboardfreelance.php
+                header("Location: dashboardfreelance.php");
+                exit();
+            } else {
+                echo "Error updating record: " . $stmtUpdate->error;
+            }
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +68,8 @@ if(isset($_GET['id_pekerjaan'])) {
 <body>
     <div class="container mt-5">
         <h2 class="mb-4">Edit Pekerjaan</h2>
-        <form action="update_pekerjaan.php" method="POST">
+        <!-- Formulir update pekerjaan -->
+        <form action="update_pekerjaan.php?id_pekerjaan=<?= $pekerjaanDetail['id_pekerjaan'] ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id_pekerjaan" value="<?= $pekerjaanDetail['id_pekerjaan'] ?>">
             <!-- Tambahkan elemen formulir sesuai kebutuhan -->
             <div class="mb-3">
@@ -51,7 +88,7 @@ if(isset($_GET['id_pekerjaan'])) {
                 <label for="harga" class="form-label">Harga</label>
                 <input type="text" class="form-control" id="harga" name="harga" value="<?= $pekerjaanDetail['harga'] ?>">
             </div>
-            
+
             <div class="mb-3">
                 <label for="foto" class="form-label">Foto</label>
                 <input type="file" class="form-control" id="foto" name="foto">
@@ -62,6 +99,7 @@ if(isset($_GET['id_pekerjaan'])) {
 
             <button type="submit" class="btn btn-primary">Update Pekerjaan</button>
         </form>
+
         <a href="dashboardfreelance.php" class="btn btn-secondary mt-3">Back to List Pekerjaan</a>
     </div>
     <!-- Bootstrap JS -->

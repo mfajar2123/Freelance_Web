@@ -90,7 +90,7 @@ $user_id = $_SESSION['user_id'];
   <div class="container mt-3">
     <div class="form-container">
       <h2>Tambah Pekerjaan</h2>
-      <form action="process_tambahpekerjaan.php" method="post">
+      <form action="process_tambahpekerjaan.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nohp">No Handphone</label>
             <input type="text" class="form-control" id="nohp" name="nohp" placeholder="No Handphone" required>
@@ -109,7 +109,8 @@ $user_id = $_SESSION['user_id'];
         </div>
         <div class="form-group">
             <label for="foto">Foto Produk</label>
-            <input type="text" class="form-control" id="foto" name="foto" placeholder="Foto" required>
+            <input type="file" class="form-control-file" id="foto" name="foto" accept="image/*" required>
+            <small class="form-text text-muted">Pilih file gambar (format: JPG, JPEG, PNG).</small>
         </div>
         <div class="form-group">
             <label for="skills">Skills</label>
