@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2023 at 05:26 AM
+-- Generation Time: Dec 10, 2023 at 07:29 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -74,19 +74,22 @@ CREATE TABLE `pekerjaan` (
   `foto` varchar(255) NOT NULL,
   `skills` varchar(255) NOT NULL,
   `harga` varchar(255) NOT NULL,
-  `status_pekerjaan` varchar(50) DEFAULT 'belum dipesan'
+  `status_pekerjaan` varchar(50) DEFAULT 'belum dipesan',
+  `nohp` int(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pekerjaan`
 --
 
-INSERT INTO `pekerjaan` (`id_pekerjaan`, `freelancer_id`, `jenis_pekerjaan`, `deskripsi_order`, `foto`, `skills`, `harga`, `status_pekerjaan`) VALUES
-(1, 7, 'gamr', 'dsaasd', 'logoo.png', 'sda', '232', 'belum dipesan'),
-(2, 5, 'sdads', 'sdadsa', 'logoo.png', 'dsadsa', '2321', 'belum dipesan'),
-(3, 7, 'Dokter Kandungan', 'Saya Bisa cek kandungan', 'logoo.png', 'cek kandungan', 'gratis', 'sudah dipesan'),
-(4, 7, 'kang service', 'gasgas', 'kocak.png', 'sdadsa12414', '124141', 'belum dipesan'),
-(5, 8, 'Gamers', 'Jasa gendong bermain game', 'kocak.png', 'turu', '50.000.000', 'belum dipesan');
+INSERT INTO `pekerjaan` (`id_pekerjaan`, `freelancer_id`, `jenis_pekerjaan`, `deskripsi_order`, `foto`, `skills`, `harga`, `status_pekerjaan`, `nohp`) VALUES
+(1, 7, 'gamr', 'dsaasd', 'logoo.png', 'sda', '2325', 'belum dipesan', 0),
+(2, 5, 'sdads', 'sdadsa', 'logoo.png', 'dsadsa', '2321', 'belum dipesan', 0),
+(3, 7, 'Doker Mesin', 'Saya Bisa cek permasalahan mesin', 'Museum_Negeri_Sumatera_Utara_Medan.jpg', 'menyehatkan mesin yang sakit', '25252525', 'sudah dipesan', 0),
+(4, 7, 'kang service', 'gasgas', 'kocak.png', 'sdadsa12414', '124141', 'belum dipesan', 0),
+(5, 8, 'Gamers', 'Jasa gendong bermain game', 'kocak.png', 'turu', '50.000.000', 'belum dipesan', 0),
+(6, 7, 'web development asik', 'asik asik aja ya ges ya', 'WhatsApp Image 2023-11-18 at 21.14.43_86941312.jpg', 'ya master pis lah', '222222222', 'belum dipesan', 2147483647),
+(7, 7, 'Full Stack Developer', 'Bikinin Website Kamu', 'esp32-devkitC-v4-pinout 38 Pin.png', 'Frontend,Backend, UI/UX Design', '5000000', 'belum dipesan', 2014961961);
 
 -- --------------------------------------------------------
 
@@ -206,7 +209,7 @@ ALTER TABLE `order_table`
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
