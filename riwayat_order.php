@@ -7,8 +7,9 @@ if(isset($_SESSION['user_id'])) {
 
     // Ambil informasi dari tabel order_table dan users
     $query = "SELECT order_table.id_order, order_table.created_at, order_table.status, 
-          pekerjaan.jenis_pekerjaan, order_table.deskripsi_order, users.name AS customer_name, 
-          freelancer.name AS freelancer_name
+          pekerjaan.jenis_pekerjaan, order_table.deskripsi_order, 
+          users.name AS customer_name, freelancer.name AS freelancer_name,
+          order_table.file_finish
           FROM order_table 
           INNER JOIN users ON order_table.klien_id = users.id 
           INNER JOIN pekerjaan ON order_table.id_pekerjaan = pekerjaan.id_pekerjaan
@@ -50,6 +51,7 @@ if(isset($_SESSION['user_id'])) {
             $orderId = $row['id_order'];
             $status = $row['status'];
             $jenisPekerjaan = $row['jenis_pekerjaan'];
+            $fileFinish = $row['file_finish'];
 ?>
         <!-- Data Order -->
 
@@ -70,6 +72,16 @@ if(isset($_SESSION['user_id'])) {
                     <h4>Status</h4>
                     <p><?= $row['status'] ?></p>
                 </div>
+                <div class="col-md-4">
+    <h4>File Finish</h4>
+    <p><?= $row['file_finish'] ?></p>
+    <?php if (!empty($fileFinish)) { ?>
+        <a href="assets/filefinish/<?= $fileFinish ?>" download="<?= $fileFinish ?>" target="_blank">Download File</a>
+    <?php } else { ?>
+        <p>-</p>
+    <?php } ?>
+</div>
+
                 <div class="col-md-4">
                     <br><!-- <h4>Action</h4> -->
 

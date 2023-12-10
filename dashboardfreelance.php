@@ -46,7 +46,7 @@
                             <span class="badge">1</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="freelance_order.php">Orders</a></li>
                             <li><a class="dropdown-item" href="#">Messages</a></li>
                             <li><a class="dropdown-item" href="#">Notifications</a></li>
                             <li><hr class="dropdown-divider"></li>
@@ -117,8 +117,9 @@
                                         <p class="card-text custom-text"><?php echo $row['deskripsi_order']; ?></p>
                                     </div>
                                     <div class="card-footer">
-                                        <span>Price: $<?php echo $row['skills']; ?></span>
-                                        <a href="order_detail.php?id_pekerjaan=<?php echo $row['id_pekerjaan']; ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
+                                        <span>Price: $<?php echo $row['harga']; ?></span>
+                                        <a href="update_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>" class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
+
                                     </div>
                                 </div>
                             </div>
