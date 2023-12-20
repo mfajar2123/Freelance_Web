@@ -1,4 +1,4 @@
-?<?php
+<?php
 session_start();
 
 include 'config.php';
@@ -14,12 +14,14 @@ if ($result->num_rows == 1) {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['name'];
     $_SESSION['user_foto'] = $user['foto_profil'];
-    
-    // Menyimpan nama pengguna dalam sesi
 
+    // Check if the user is an admin
     if ($user['role'] == 'freelancer') {
         header("Location: dashboardfreelance.php");
+    } elseif ($user['role'] == 'admin') {
+        header("Location: dashboardadmin.php");
     } else {
+        // For other roles, you can redirect to a default dashboard or handle accordingly
         header("Location: dashboard.php");
     }
 } else {
