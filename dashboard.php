@@ -1,9 +1,17 @@
 <?php
-                    session_start();
+                     session_start();
                     if (!isset($_SESSION['user_id'])) {
                         header("Location: login.php");
                         exit();
                     }
+                    include 'config.php';
+
+
+$userId = $_SESSION['user_id'];
+$countSql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE user_id = $userId AND is_read = 0";
+$countResult = $conn->query($countSql);
+$rowCount = $countResult->fetch_assoc();
+$unreadCount = $rowCount['unread_count'];
 ?>
 
 <html>
@@ -15,11 +23,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 
 </head>
 
-<body>
+<body style="background-color: #EFF1F3;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">TalentaHub</a>
@@ -31,6 +40,14 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Explore</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tes_notif.php?id_user=<?php echo $_SESSION['user_id']; ?>">
+                            <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
+                            <?php if ($unreadCount > 0) { ?>
+                            <span class="badge"><?php echo $unreadCount; ?></span>
+                            <?php } ?>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -40,7 +57,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="riwayat_order.php">Orders</a></li>
                             <li><a class="dropdown-item" href="#">Messages</a></li>
-                            <li><a class="dropdown-item" href="#">Notifications</a></li>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

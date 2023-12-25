@@ -101,6 +101,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmtUpdate->execute()) {
             // Jika berhasil mengubah status_pekerjaan, redirect ke halaman pembayaran
+            $user_id = $_SESSION['user_id'];
+            $notification_type = "Order Berhasil";
+            $message = "Pesanan Anda berhasil dipesan, silahkan lakukan pembayaran!";
+        
+            // Menyimpan notifikasi status selesai ke dalam tabel notifications
+            $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0)";
+            $stmtNotification = $conn->prepare($queryInsertNotification);
+            $stmtNotification->bind_param("iss", $user_id, $notification_type, $message);
+        
+            if ($stmtNotification->execute()) {
+                // Notifikasi status selesai berhasil disimpan ke dalam tabel notifications
+            } else {
+                // Gagal menyimpan notifikasi status selesai
+                echo "Gagal menyimpan notifikasi status selesai: " . $stmtNotification->error;
+            }
+        
+            $stmtNotification->close();
             header("Location: halaman_pembayaran.php?order_id=$lastOrderId");
             exit();
         } else {
@@ -112,5 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->close();
+
+    // Tambahkan logic notifikasi setelah order berhasil dimasukkan ke database
+
+
+
 }
 ?>

@@ -73,14 +73,15 @@ if(isset($_SESSION['user_id'])) {
                     <p><?= $row['status'] ?></p>
                 </div>
                 <div class="col-md-4">
-    <h4>File Finish</h4>
-    <p><?= $row['file_finish'] ?></p>
-    <?php if (!empty($fileFinish)) { ?>
-        <a href="assets/filefinish/<?= $fileFinish ?>" download="<?= $fileFinish ?>" target="_blank">Download File</a>
-    <?php } else { ?>
-        <p>-</p>
-    <?php } ?>
-</div>
+                    <h4>File Finish</h4>
+                    <p><?= $row['file_finish'] ?></p>
+                    <?php if (!empty($fileFinish)) { ?>
+                    <a href="assets/filefinish/<?= $fileFinish ?>" download="<?= $fileFinish ?>"
+                        target="_blank">Download File</a>
+                    <?php } else { ?>
+                    <p>-</p>
+                    <?php } ?>
+                </div>
 
                 <div class="col-md-4">
                     <br><!-- <h4>Action</h4> -->

@@ -59,10 +59,27 @@ $file=$_FILES["fileBuktiBayar"]["name"];
         if ($stmtUpdateOrderStatus->execute()) {
             // Jika status order diperbarui, pindahkan ke halaman ringkasan pembayaran
             $stmtUpdateOrderStatus->close();
-            $stmt->close();
-            $conn->close();
+            
 
             // Redirect ke halaman ringkasan pembayaran dengan id_order yang sesuai
+              // Mendefinisikan variabel untuk notifikasi status selesai
+                $user_id = $_SESSION['user_id'];
+                $notification_type = "Order Selesai";
+                $message = "Terima kasih sudah melakukan pembayaran.";
+
+                // Menyimpan notifikasi status selesai ke dalam tabel notifications
+                $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0)";
+                $stmtNotification = $conn->prepare($queryInsertNotification);
+                $stmtNotification->bind_param("iss", $user_id, $notification_type, $message);
+
+                if ($stmtNotification->execute()) {
+                    // Notifikasi status selesai berhasil disimpan ke dalam tabel notifications
+                } else {
+                    // Gagal menyimpan notifikasi status selesai
+                    echo "Gagal menyimpan notifikasi status selesai: " . $stmtNotification->error;
+                }
+
+                $stmtNotification->close();
             header("Location: ringkasan_pembayaran.php?id_order=$idOrder");
             exit();
         } else {

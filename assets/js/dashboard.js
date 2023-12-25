@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card service-card" data-category="${pekerjaan.kategori}" data-skill="${pekerjaan.skill}">
                         <img src="./assets/img/${pekerjaan.foto}" class="card-img-top" alt="User Photo">
                         <div class="card-profile d-flex align-items-center m-lg-2">
-                            <img src="assets/img/${pekerjaan.foto_profil}" class="card-profile-img rounded-circle" alt="Profile Image" style="width: 35px; height: 35px;">
+                            <img src="assets/img/users/${pekerjaan.foto_profil}" class="card-profile-img rounded-circle" alt="Profile Image" style="width: 35px; height: 35px;">
                             <span class="card-profile-name ms-2" style="font-weight: bold;">${pekerjaan.name}</span>
                         </div>
                         <div class="card-body">
