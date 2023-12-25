@@ -56,7 +56,7 @@ $unreadCount = $rowCount['unread_count'];
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="riwayat_order.php">Orders</a></li>
-                            <li><a class="dropdown-item" href="#">Messages</a></li>
+
 
                             <li>
                                 <hr class="dropdown-divider">
