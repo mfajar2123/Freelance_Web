@@ -9,16 +9,19 @@
   <!-- Bootstrap CSS -->
   <link href="assets/img/logoo.png" rel="icon">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+      background-color: #23585C;
     }
 
     .form-container {
       max-width: 400px;
       margin: 0 auto;
       padding: 40px;
-      background-color: #fff;
+      background-color: #9AD9CE;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
     }
@@ -27,7 +30,7 @@
       font-size: 32px;
       font-weight: bold;
       margin-bottom: 30px;
-      color: rgba(1, 4, 136, 0.9);
+      color: #23585C;
     }
 
     .form-container label {
@@ -50,7 +53,7 @@
       padding: 12px 24px;
       border-radius: 30px;
       width: 100%;
-      background-color: rgba(1, 4, 136, 0.9);
+      background-color: #23585C; /* Warna latar belakang tombol */
       color: #fff;
     }
 
@@ -67,17 +70,10 @@
 </head>
 
 <body>
-  <!-- Navbar (copy the navbar code from the previous examples here) -->
-
-  <!-- Register Form -->
   <div class="container mt-5">
     <div class="form-container">
       <h2>Register</h2>
       <form action="process_registration.php" method="post">
-      <!-- <div class="form-group">
-          <label for="registername">Name</label>
-          <input type="text" class="form-control" id="registername" name="name" placeholder="Enter Name" required>
-        </div> -->
         <div class="form-group">
           <label for="registerFullName">Username</label>
           <input type="text" class="form-control" id="registerFullName" name="username" placeholder="Enter username" required>
@@ -92,16 +88,14 @@
         </div>
         <label for="role">Role:</label><br>
         <select name="role" id="role">
-            <option value="klien">Klien</option>
-            <option value="freelancer">Freelancer</option>
+          <option value="klien">Klien</option>
+          <option value="freelancer">Freelancer</option>
         </select><br><br>
         <button type="submit" class="btn btn-register">Register</button>
         <p class="form-text">Already have an account? <a href="login.php">Login here</a></p>
       </form>
     </div>
   </div>
-
-  <!-- Footer (copy the footer code from the previous examples here) -->
 
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
