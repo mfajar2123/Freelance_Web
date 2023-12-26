@@ -12,13 +12,8 @@ $pekerjaan = [];
 
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        // Di sini, Anda dapat menentukan logika untuk status pekerjaan
-        // Misalnya, Anda menambahkan status_pekerjaan sebagai contoh 'belum dipesan'
-        // Anda dapat mengubahnya sesuai kebutuhan aplikasi Anda
-        if ($row['status_pekerjaan'] === 'belum dipesan') {
-            // Tambahkan pekerjaan ke dalam array $pekerjaan
-            $pekerjaan[] = $row;
-        }
+        // Tambahkan pekerjaan ke dalam array $pekerjaan
+        $pekerjaan[] = $row;
     }
     echo json_encode($pekerjaan); // Mengirim data dalam bentuk JSON
 } else {
@@ -26,5 +21,4 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-
 ?>

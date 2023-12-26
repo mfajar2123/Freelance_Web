@@ -6,7 +6,10 @@ if (isset($_GET['id'])) {
     $orderId = $_GET['id'];
 
     // Query untuk mendapatkan detail order berdasarkan id_order
-    $query = "SELECT * FROM order_table WHERE id_order = ?";
+    $query = "SELECT order_table.*, users.name as klien_name
+              FROM order_table 
+              JOIN users ON order_table.klien_id = users.id
+              WHERE order_table.id_order = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $orderId);
     $stmt->execute();
@@ -26,24 +29,49 @@ if (isset($_GET['id'])) {
             <!-- Bootstrap CSS -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-            <!-- Your custom styles here -->
-            <!-- Tambahkan CSS kustom jika diperlukan -->
+            <style>
+                body {
+                    background-color: #78D6C6;
+                }
+
+                .card {
+                    background-color: #ffffff;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    padding: 20px;
+                    margin-top: 20px;
+                }
+            </style>
         </head>
 
         <body>
-            <div class="container mt-5">
-                <h2 class="mb-4">Detail Order</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>ID Order: <?= $orderDetail['id_order'] ?></h4>
-                        <h4>Klien ID: <?= $orderDetail['klien_id'] ?></h4>
-                        <h4>ID Pekerjaan: <?= $orderDetail['id_pekerjaan'] ?></h4>
-                        <h4>Deskripsi Order: <?= $orderDetail['deskripsi_order'] ?></h4>
-                        <h4>File: <?= $orderDetail['file'] ?></h4>
-                        <h4>Status: <?= $orderDetail['status'] ?></h4>
-                        <!-- Tambahkan informasi lain sesuai kebutuhan -->
-                    </div>
-                    <div class="col-md-3">
+        <div class="container mt-5">
+        <div class="card">
+            <div class="row">
+            <h2 class="mb-4">Detail Order</h2>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                             <label class="labels">ID Order</label>
+                             <h5><?= $orderDetail['id_order'] ?></h5>
+                        </div><br>
+                        <div class="col-md-12">
+                             <label class="labels">Klien</label>
+                             <h5><?= $orderDetail['klien_name'] ?></h5>
+                        </div><br>
+                        <div class="col-md-12">
+                             <label class="labels">Deskripsi Order</label>
+                             <h5><?= $orderDetail['deskripsi_order'] ?></h5>
+                        </div><br>
+                        <div class="col-md-12">
+                             <label class="labels">File</label>
+                             <h5><a href="./assets/img/<?= $orderDetail['file'] ?>" download><?= $orderDetail['file'] ?></a></h5>
+                        </div><br>
+                        <div class="col-md-12">
+                             <label class="labels">Status</label>
+                             <h5><?= $orderDetail['status'] ?></h5>
+                        </div>
+                    <!-- Tambahkan informasi lain sesuai kebutuhan -->
+                </div>
+                <div class="col-md-3">
                     <h4>Action</h4>
                     <form action="update_status.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
@@ -58,8 +86,8 @@ if (isset($_GET['id'])) {
                             <label for="fileInput">Upload File Finish</label>
                             <input type="file" class="form-control" id="fileInput" name="file_input">
                         </div>
-                        <input type="hidden" name="order_id" value="<?= $orderId ?>">
-                        <button type="submit" class="btn btn-details">Submit</button>
+                        <input type="hidden" name="order_id" value="<?= $orderId ?>"><br>
+                        <button type="submit" class="btn btn-details btn-primary">Submit</button>
                     </form>
                     <script>
                         function toggleTextInput() {
@@ -75,12 +103,13 @@ if (isset($_GET['id'])) {
                             }
                         }
                     </script>
-
-                    </div>
-                <div class="mt-3">
-                    <a href="freelance_order.php" class="btn btn-primary">Back to List Order</a>
                 </div>
             </div>
+        </div>
+        <div class="mt-3">
+            <a href="freelance_order.php" class="btn btn-primary" >Back to List Order</a>
+        </div>
+    </div>
             <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         </body>
