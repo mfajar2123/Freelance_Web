@@ -40,12 +40,17 @@ $unreadCount = $rowCount['unread_count'];
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Explore</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item position-relative">
                         <a class="nav-link" href="tes_notif.php?id_user=<?php echo $_SESSION['user_id']; ?>">
-                            <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
-                            <?php if ($unreadCount > 0) { ?>
-                            <span class="badge"><?php echo $unreadCount; ?></span>
-                            <?php } ?>
+                            <div class="d-flex flex-column align-items-center position-relative">
+                                <?php if ($unreadCount > 0) { ?>
+                                    <span class="badge badge-danger position-absolute top-0 start-60 translate-middle-x">
+                                        <?php echo $unreadCount; ?>
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                <?php } ?>
+                                <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
+                            </div>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -75,36 +80,23 @@ $unreadCount = $rowCount['unread_count'];
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container pb-3">
         <div class="row">
             <div class="col-md-12">
-                <!-- Filter section -->
-                <div class="filter-section">
-                    <label for="category">Category:</label>
-                    <select id="category">
-                        <option value="">All</option>
-                        <option value="web">Web Development</option>
-                        <option value="mobile">Mobile Development</option>
-                        <option value="design">Design</option>
-                        <option value="writing">Writing</option>
-                        <option value="data">Data Science</option>
-                    </select>
-                    <label for="skill">Skill:</label>
-                    <select id="skill">
-                        <option value="">All</option>
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
-                        <option value="js">JavaScript</option>
-                        <option value="php">PHP</option>
-                        <option value="python">Python</option>
-                    </select>
-                    <label for="keyword">Keyword:</label>
-                    <input type="text" id="keyword" placeholder="Enter keyword">
-                    <button id="filter">Filter</button>
+                <!-- Hero Banner Section Start -->
+                <div class="d-flex align-items-center px-3 rounded rounded-3 mt-3" style="background-color: #419197;">
+                    <div class="my-4">
+                        <img src="./assets/img/4890274.jpg" style="width: 350px;" class="rounded rounded-3" alt="">
+                    </div>
+                    <div class="ms-4">
+                        <h2 style="color: white;"><b>Cari Proyek, Temukan Bakat, Semua bisa di TalentaHub!</b></h2>
+                        <p style="color: white;">Di TalentaHub kita semua satu tim! Temukan proyek seru, kembangkan bakat, dan raih kesempatan freelance yang menanti. </p>
+                        <!-- <input type="button" value="Cari tau lebih lanjut" class="btn" style="color: white; background-color: #78D6C6;"> -->
+                    </div>
                 </div>
-
+                
                 <div class="container">
-                    <div class="row" id="services">
+                    <div class="row " id="services">
                         <!-- Di sini kartu-kartu pekerjaan akan dimuat oleh JavaScript -->
                     </div>
                 </div>

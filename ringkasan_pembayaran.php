@@ -46,75 +46,82 @@ $conn->close();
     <style>
     /* Add your custom styles here */
     body {
-        font-family: Arial, sans-serif;
-        background-color: rgba(1, 4, 136, 0.9);
-    }
+            font-family: 'Poppins', sans-serif;
+            background-color: #23585C;
+            color: #1E1E1E;
+        }
 
-    .payment-container {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
+        .payment-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .payment-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-    }
+        .payment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
 
-    .payment-header h2 {
-        font-size: 24px;
-        font-weight: bold;
-    }
+        .payment-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E1E1E;
+        }
 
-    .payment-header span {
-        font-size: 18px;
-        color: #777;
-    }
+        .payment-details {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .payment-summary {
-        margin-bottom: 30px;
-    }
+        .payment-details p {
+            color: #1E1E1E;
+        }
 
-    .summary-heading {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
+        .payment-summary {
+            margin-bottom: 30px;
+        }
 
-    .summary-details {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 20px;
-    }
+        .summary-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1E1E1E;
+        }
 
-    .track-btn {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
+        .summary-details {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    .btn-track {
-        padding: 10px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #1dbf73;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        .track-btn {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-    .btn-track:hover {
-        background-color: #149f5b;
-    }
+        .btn-track {
+            padding: 10px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #23585C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-track:hover {
+            background-color: #419197;
+        }
     </style>
 </head>
 

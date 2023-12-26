@@ -2,7 +2,7 @@
 session_start();
 include 'config.php';
 
-if(isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
     // Ambil informasi dari tabel order_table, users, dan pekerjaan
@@ -12,12 +12,12 @@ if(isset($_SESSION['user_id'])) {
               INNER JOIN pekerjaan ON order_table.id_pekerjaan = pekerjaan.id_pekerjaan
               INNER JOIN users ON pekerjaan.freelancer_id = users.id
               WHERE users.id = ?";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows > 0) {
         // Memulai konten HTML
         ?>
@@ -25,27 +25,28 @@ if(isset($_SESSION['user_id'])) {
         <html lang="en">
 
         <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Order</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Riwayat Order</title>
+            <!-- Bootstrap CSS -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+            <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Your custom styles here -->
-    <style>
-    /* Add your custom styles here */
+<style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Poppins', sans-serif;
         background-color: #f8f9fa;
+        color: #ffffff;
     }
 
     .order-container {
         max-width: 800px;
         margin: 50px auto;
         padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        background-color: #23585C;
+        border-radius: 20px;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
     }
 
     .order-header {
@@ -55,6 +56,7 @@ if(isset($_SESSION['user_id'])) {
         margin-bottom: 20px;
         padding-bottom: 10px;
         border-bottom: 1px solid #eee;
+        color: #ffffff;
     }
 
     .order-header h2 {
@@ -64,44 +66,54 @@ if(isset($_SESSION['user_id'])) {
 
     .order-header span {
         font-size: 18px;
-        color: #777;
+        color: #9AD9CE;
     }
 
-    .order-item {
+    .card {
+        font-family: 'Poppins', sans-serif;
+        color: #1E1E1E;
         margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        background-color: #9AD9CE;
     }
 
-    .order-item h4 {
+    .card-header {
+        padding: 10px;
+        color: #1E1E1E;
+        position: relative;
+    }
+
+    .card-header h5 {
+        margin-bottom: 5px;
         font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-weight: medium;
     }
 
-    .order-item p {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 5px;
+    .card-header p {
+        position: absolute;
+        bottom: -15px;
+        left: 38px;
+        color: #1E1E1E;
+        font-size: 12px; 
     }
 
-    .order-details {
-        font-size: 16px;
-        color: #333;
+    .card-header .badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #419197 !important;
     }
 
-    .order-details-btn {
-        text-align: right;
+    .card-body {
+        padding: 15px;
     }
 
     .btn-details {
         padding: 5px 15px;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
         color: #fff;
-        background-color: #1dbf73;
+        background-color: #23585C;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -109,25 +121,31 @@ if(isset($_SESSION['user_id'])) {
     }
 
     .btn-details:hover {
-        background-color: #149f5b;
+        background-color: #9AD9CE;
     }
 
     .btn-primary {
-        background-color: #01036f;
-        border-color: #01036f;
+        background-color: blue;
+        border-color: #23585C;
     }
 
     .btn-primary:hover {
-        background-color: #000;
+        background-color: white;
         border-color: #000;
+        color: blue;
     }
-    </style>
-</head>
+</style>
 
+        </head>
         <body>
-            <div class="order-container">
+        <!-- <body style="background-color: #23585C;">> -->
+            
+            <div class="order-container" >
                 <div class="order-header">
                     <h2 class="text-center">List Order</h2>
+                </div>
+                <div class="text-center mt-2 mb-3">
+                    <a href="dashboardfreelance.php" class="btn btn-primary">Back to Dashboard</a>
                 </div>
 
                 <!-- Memulai loop untuk menampilkan data order -->
@@ -136,52 +154,56 @@ if(isset($_SESSION['user_id'])) {
                     $orderId = $row['id_order'];
                     $status = $row['status'];
                 ?>
-                <!-- Data Order -->
-                <div class="order-item">
-                <div class="row">
-                    <div class="col-md-2">
-                        <h4>Tanggal</h4>
-                        <p><?= $row['created_at'] ?></p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Nama Pekerjaan</h4>
-                        <p><?= $row['nama_pekerjaan'] ?></p>
-                    </div>
-                    <div class="col-md-6">
+                    <!-- Data Order -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>
+                                <i class="bi bi-clipboard-check-fill"></i> Order
+                            </h5>
+                            <p><?= $row['created_at'] ?></p>
+                            <span class="badge text-bg-primary" style="position: absolute; top:20px; right: 10px;">
+                                <?= $row['status'] ?>
+                            </span>
+                        </div>
+
                         <div class="row">
-                            <div class="col-md-12">
-                                <h4>Deskripsi Pekerjaan</h4>
-                                <p><?= $row['deskripsi_order'] ?></p>
+                            <!-- Di dalam loop while -->
+                            <div class="col-md-4">
+                                <p>
+                                <a href="./assets/img/<?= $row['file'] ?>" download="<?= $row['file'] ?>"><?= $row['file'] ?></a>
+                                </p>
                             </div>
-                            <div class="col-md-12">
-                                <h4>File</h4>
-                                <p><?= $row['file'] ?></p>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h5>Nama pekerjaan:</h5>
+                                            <p><?= $row['nama_pekerjaan'] ?></p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h5>Deskripsi:</h5>
+                                            <p><?= $row['deskripsi_order'] ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1" style="position: absolute; bottom: 5px; right: 35px;">
+                                    <a href="order_detail_freelance.php?id=<?= $orderId ?>" class="btn" style="background-color: #23585C; color: #fff;">Details</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <h4>Status</h4>
-                        <p><?= $row['status'] ?></p>
-                    </div>
-                    <div class="col-md-3">
-                        <h4>Action</h4>
-                        <a href="order_detail_freelance.php?id=<?= $orderId ?>" class="btn btn-details">Details</a>
-                    </div>
-                </div>
-                </div>
+
+
                 <?php
                 } // Tutup loop while
                 ?>
             </div>
-            <div class="text-center mt-2 mb-3">
-                <a href="dashboardfreelance.php" class="btn btn-primary">Back to Dashboard</a>
-            </div>
             <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
         </body>
 
         </html>
-        <?php
+    <?php
     } else {
         echo "Tidak ada data yang ditemukan.";
     }

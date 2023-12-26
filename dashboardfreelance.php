@@ -52,13 +52,17 @@ $unreadCount = $rowCount['unread_count'];
                     <li class="nav-item">
                         <a href="tambahpekerjaan.php" class="btn btn-primary">Tambah Pekerjaan</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                            href="freelancer_notifications.php?id_user=<?php echo $_SESSION['user_id']; ?>">
-                            <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
-                            <?php if ($unreadCount > 0) { ?>
-                            <span class="badge"><?php echo $unreadCount; ?></span>
-                            <?php } ?>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="freelancer_notifications.php?id_user=<?php echo $_SESSION['user_id']; ?>">
+                            <div class="d-flex flex-column align-items-center position-relative">
+                                <?php if ($unreadCount > 0) { ?>
+                                    <span class="badge badge-danger position-absolute top-10 start-60 translate-middle-y">
+                                        <?php echo $unreadCount; ?>
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                <?php } ?>
+                                <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
+                            </div>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
