@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($conn->query($updatePhotoQuery) === TRUE) {
                 echo "File " . basename($_FILES["editPhoto"]["name"]) . " berhasil diunggah.";
                 // Refresh halaman setelah update foto profil
-                header("Location: profile_freelance.php?user_id=$user_id");
+                header("Location: profile_freelance.php?id_user=$user_id");
             } else {
                 echo "Maaf, terjadi kesalahan saat mengunggah file.";
             }

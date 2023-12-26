@@ -1,32 +1,32 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
-
 include 'config.php';
 
-// Periksa apakah 'user_id' diatur dalam URL
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
+$user_id=$_GET['id_user'];
 
-    // Kueri untuk mengambil data pengguna
-    $sql = "SELECT * FROM `users` WHERE id=$user_id";
-    $result = $conn->query($sql);
+// Query untuk mengambil data pekerjaan dari tabel pekerjaan
+// $sql = "SELECT pekerjaan.*, users.name, users.no_hp, users.foto_profil  FROM pekerjaan JOIN users on pekerjaan.freelancer_id=users.id WHERE id_pekerjaan=$pekerjaan_id";
+$sql = "SELECT * FROM `users` WHERE id=$user_id";
+$result = $conn->query($sql);
 
-    // Buat array untuk menyimpan data pengguna
-    $user = [];
+// Buat array untuk menyimpan data pekerjaan
+$user = [];
+$conn->close();
 
-    // Periksa apakah kueri berhasil
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            $user[] = $row;
-        }
-    } else {
-        echo "Error in SQL query: " . $conn->error;
-        die;
+// Tampilkan data pekerjaan sebagai array JSON
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $user[] = $row;
     }
+      // Mengirim data dalam bentuk JSON
+} else {
+    echo "tidak ditemukan";
+    die;
 }
 
 
@@ -49,14 +49,9 @@ if (isset($_GET['user_id'])) {
 </head>
 
 <body>
-
-
-
-
-    <div class="container rounded bg-white mt-5 mb-5">
+<div class="container">
         <div class="row">
-
-            <div class="col-md-3 border-right">
+            <div class="col-md-4 border-right">
                 <div class="text-left mt-3">
                     <a href="dashboardfreelance.php" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -67,10 +62,11 @@ if (isset($_GET['user_id'])) {
                         Back
                     </a>
                 </div>
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                        width="150px" src="./assets/img/users/<?= $user[0]['foto_profil'] ?>"><span
-                        class="font-weight-bold"><?= $user[0]['name'] ?>
-                    </span><span class="text-black-50"><?= $user[0]['email'] ?></span><span> </span>
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded mt-5" width="250px" style="border-radius: 5px;"
+                        src="./assets/img/users/<?= $user[0]['foto_profil'] ?>">
+                    <span class="font-weight-bold"><?= $user[0]['name'] ?></span>
+                    <span class="text-black-50"><?= $user[0]['email'] ?></span>
 
                     <form action="process_update_fotoProfilfreelance.php" method="POST" enctype="multipart/form-data">
                         <div class="mt-3">
@@ -94,14 +90,10 @@ if (isset($_GET['user_id'])) {
                         </div>
                     </form>
                 </div>
-
-
-
             </div>
-            <div class="col-md-5 border-right">
 
+            <div class="col-md-8 border-right">
                 <div class="p-3 py-5">
-
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
@@ -119,7 +111,6 @@ if (isset($_GET['user_id'])) {
                                 <input type="text" class="form-control" placeholder="Enter phone number" name="nohp"
                                     value="<?= $user[0]['no_hp'] ?>">
                             </div>
-                            <!-- ... (input lainnya) ... -->
                             <div class="col-md-12">
                                 <label class="labels">Email ID</label>
                                 <input type="text" class="form-control" placeholder="Enter email id" name="email"
@@ -144,31 +135,14 @@ if (isset($_GET['user_id'])) {
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-
                             <button class="btn btn-primary profile-button" type="submit"
                                 onclick="return confirm('Apakah Anda yakin ingin menyimpan perubahan?')">Save</button>
-
                         </div>
                     </form>
-
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit
-                            Portfolio</span><span class="border px-3 p-1 add-experience"><i
-                                class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text"
-                            class="form-control" placeholder="experience" value=""></div> <br>
-                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text"
-                            class="form-control" placeholder="additional details" value=""></div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    <!-- Bootstrap JS -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

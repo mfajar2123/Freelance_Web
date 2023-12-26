@@ -53,9 +53,6 @@ $unreadCount = $rowCount['unread_count'];
                         <a href="tambahpekerjaan.php" class="btn btn-primary">Tambah Pekerjaan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Explore</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link"
                             href="freelancer_notifications.php?id_user=<?php echo $_SESSION['user_id']; ?>">
                             <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
@@ -95,30 +92,7 @@ $unreadCount = $rowCount['unread_count'];
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <!-- Filter section -->
-                <div class="filter-section">
-                    <label for="category">Category:</label>
-                    <select id="category">
-                        <option value="">All</option>
-                        <option value="web">Web Development</option>
-                        <option value="mobile">Mobile Development</option>
-                        <option value="design">Design</option>
-                        <option value="writing">Writing</option>
-                        <option value="data">Data Science</option>
-                    </select>
-                    <label for="skill">Skill:</label>
-                    <select id="skill">
-                        <option value="">All</option>
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
-                        <option value="js">JavaScript</option>
-                        <option value="php">PHP</option>
-                        <option value="python">Python</option>
-                    </select>
-                    <label for="keyword">Keyword:</label>
-                    <input type="text" id="keyword" placeholder="Enter keyword">
-                    <button id="filter">Filter</button>
-                </div>
+
                 <!-- Service cards -->
                 <div class="row">
                     <?php
@@ -147,10 +121,12 @@ $unreadCount = $rowCount['unread_count'];
                             </div>
                             <div class="card-footer">
                                 <span>Price: $<?php echo $row['harga']; ?></span>
+                            </div>
+                            <div class="d-flex justify-content-center">
                                 <a href="update_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>"
                                     class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
-
-
+                                <a href="process_delete_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>"
+                                    class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this job?')">Delete</a>
                             </div>
                         </div>
                     </div>

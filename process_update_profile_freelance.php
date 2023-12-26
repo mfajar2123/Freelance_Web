@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($conn->query($sql) === TRUE) {
         // Redirect setelah proses update selesai
-        header("Location: profile_freelance.php?user_id=$user_id");
+        header("Location: profile_freelance.php?id_user=$user_id");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

@@ -1,44 +1,28 @@
 body {
-    background: rgba(1, 4, 136, 0.9);
+    background-color: #419197;
 }
 
-.form-control:focus {
-    box-shadow: none;
-    border-color: rgba(1, 4, 136, 0.9);
+.container {
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+
 }
 
+.btn-primary,
 .profile-button {
-    background:rgba(1, 4, 136, 0.9);
-    box-shadow: none;
-    border: none
+    background-color: blue;
+    border: none;
 }
 
+.btn-primary:hover,
 .profile-button:hover {
-    background:rgba(2, 4, 95, 0.9);
-}
-
-.profile-button:focus {
-    background:rgba(1, 4, 136, 0.9);
-    box-shadow: none
-}
-
-.profile-button:active {
-    background:rgba(1, 4, 136, 0.9);
-    box-shadow: none
-}
-
-.back:hover {
-    color: rgba(1, 4, 136, 0.9);
-    cursor: pointer
+    background-color: #5caaa0;
 }
 
 .labels {
-    font-size: 11px
-}
-
-.add-experience:hover {
-    background: rgba(2, 4, 95, 0.9);
-    color: #fff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
+    color: black;
+    font-weight: bold;
 }

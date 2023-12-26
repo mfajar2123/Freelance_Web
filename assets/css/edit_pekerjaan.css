@@ -1,0 +1,40 @@
+body {
+    background-color: #78D6C6;
+    color: #fff;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+h2{
+    color: #419197;
+}
+.btn-primary,
+.btn-secondary {
+    background-color: #419197;
+    border-color: #419197;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    background-color: #78D6C6;
+    border-color: #78D6C6;
+}
+
+.form-label {
+    color: #419197;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    color: #495057;
+}

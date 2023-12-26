@@ -68,9 +68,20 @@ if (isset($_GET['id_pekerjaan'])) {
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Edit Pekerjaan</h2>
         <!-- Formulir update pekerjaan -->
         <form action="update_pekerjaan.php?id_pekerjaan=<?= $pekerjaanDetail['id_pekerjaan'] ?>" method="POST" enctype="multipart/form-data">
+                    <a href="dashboardfreelance.php" class="btn btn-outline-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M11.354 3.646a.5.5 0 0 0 0 .708L8.707 7.707H14.5a.5.5 0 0 0 0-1H8.707l2.647-2.646a.5.5 0 0 0 0-.708l-.708-.708a.5.5 0 0 0-.707 0l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .707 0l.708-.708z" />
+                        </svg>
+                        Back
+                    </a>
+            <br>
+            <center>
+            <h2 class="mb-4">Edit Pekerjaan</h2>
+            </center>
             <input type="hidden" name="id_pekerjaan" value="<?= $pekerjaanDetail['id_pekerjaan'] ?>">
             <!-- Tambahkan elemen formulir sesuai kebutuhan -->
             <div class="mb-3">
@@ -105,7 +116,7 @@ if (isset($_GET['id_pekerjaan'])) {
             <button type="submit" class="btn btn-primary">Update Pekerjaan</button>
         </form>
 
-        <a href="dashboardfreelance.php" class="btn btn-secondary mt-3">Back to List Pekerjaan</a>
+        
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

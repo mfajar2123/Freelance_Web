@@ -83,7 +83,7 @@
       <div class="row justify-content-between">
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out">
-            <<h1>Temukan Solusi <span>Freelance</span> yang Tepat</h1>
+            <h1>Temukan Solusi <span>Freelance</span> yang Tepat</h1>
             <h2>Segera!</h2>
             <div class="text-center text-lg-start">
               <a href="login.php" class="btn-get-started scrollto">Login Disini</a>
@@ -882,13 +882,6 @@
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>TalentaHub</span></strong>. Seluruh Hak Dilindungi
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
   </footer><!-- End Footer -->

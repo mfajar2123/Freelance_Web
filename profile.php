@@ -56,7 +56,7 @@ if ($result->num_rows > 0) {
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
 
-            <div class="col-md-3 border-right">
+            <div class="col-md-4 border-right">
                 <div class="text-left mt-3">
                     <a href="dashboard.php" class="btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -67,8 +67,8 @@ if ($result->num_rows > 0) {
                         Back
                     </a>
                 </div>
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                        width="150px" src="./assets/img/users/<?= $user[0]['foto_profil'] ?>"><span
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded mt-5" width="250px" style="border-radius: 5px;"
+                src="./assets/img/users/<?= $user[0]['foto_profil'] ?>"><span
                         class="font-weight-bold"><?= $user[0]['name'] ?>
                     </span><span class="text-black-50"><?= $user[0]['email'] ?></span><span> </span>
 
@@ -98,7 +98,7 @@ if ($result->num_rows > 0) {
 
 
             </div>
-            <div class="col-md-5 border-right">
+            <div class="col-md-8 border-right">
 
                 <div class="p-3 py-5">
 
@@ -151,17 +151,6 @@ if ($result->num_rows > 0) {
                         </div>
                     </form>
 
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit
-                            Portfolio</span><span class="border px-3 p-1 add-experience"><i
-                                class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text"
-                            class="form-control" placeholder="experience" value=""></div> <br>
-                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text"
-                            class="form-control" placeholder="additional details" value=""></div>
                 </div>
             </div>
         </div>
