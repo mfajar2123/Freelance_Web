@@ -12,15 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Koneksi ke database (contoh menggunakan mysqli)
 
-$servername = "localhost";
-
-$username = "root";
-
-$password = "";
-
-$dbname = "freelance_web";
-
-
+include 'config.php';
 
 
 // Ganti $userId dengan id user yang sedang aktif
@@ -33,7 +25,7 @@ $userId = $_GET['id_user']; // Contoh penggunaan id user
 
 
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 
 

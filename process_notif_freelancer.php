@@ -2,14 +2,7 @@
 session_start(); // Pastikan session telah dimulai sebelum menggunakan $_SESSION
 
 // Lakukan koneksi ke database di sini
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "freelance_Web";
-
-// Buat koneksi
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+include 'config.php';
 // Periksa koneksi
 if ($conn->connect_error) {
     die("Koneksi Gagal: " . $conn->connect_error);
