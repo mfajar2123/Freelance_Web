@@ -1,11 +1,40 @@
 <?php
-                     session_start();
-                    if (!isset($_SESSION['user_id'])) {
-                        header("Location: login.php");
-                        exit();
-                    }
-                    include 'config.php';
+session_start();
 
+// Check if user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Include the configuration file
+include 'config.php';
+
+// Retrieve user role from the database
+$userId = $_SESSION['user_id'];
+$roleSql = "SELECT role FROM users WHERE id = ?";
+$roleStmt = $conn->prepare($roleSql);
+$roleStmt->bind_param("i", $userId);
+$roleStmt->execute();
+$roleResult = $roleStmt->get_result();
+
+// Check if the role is 'klien'
+if ($roleResult->num_rows > 0) {
+    $userRole = $roleResult->fetch_assoc()['role'];
+    if ($userRole !== 'klien') {
+        // Redirect to a different page or show an error message
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
+
+    // Alihkan kembali ke halaman sebelumnya atau halaman beranda jika referer tidak ada
+        header("Location: $referer");
+        exit();
+    }
+} else {
+    // Handle the case where user information is not found
+    header("Location: login.php");
+    exit();
+            }
+                    include 'config.php';
 
 $userId = $_SESSION['user_id'];
 $countSql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE user_id = $userId AND is_read = 0";

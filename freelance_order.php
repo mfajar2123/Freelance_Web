@@ -7,11 +7,12 @@ if (isset($_SESSION['user_id'])) {
 
     // Ambil informasi dari tabel order_table, users, dan pekerjaan
     $query = "SELECT order_table.id_order, order_table.created_at, order_table.status, 
-                     pekerjaan.freelancer_id AS nama_pekerjaan, order_table.deskripsi_order, order_table.file
-              FROM order_table 
-              INNER JOIN pekerjaan ON order_table.id_pekerjaan = pekerjaan.id_pekerjaan
-              INNER JOIN users ON pekerjaan.freelancer_id = users.id
-              WHERE users.id = ?";
+                 pekerjaan.jenis_pekerjaan AS nama_pekerjaan, order_table.deskripsi_order, order_table.file
+          FROM order_table 
+          INNER JOIN pekerjaan ON order_table.id_pekerjaan = pekerjaan.id_pekerjaan
+          INNER JOIN users ON pekerjaan.freelancer_id = users.id
+          WHERE users.id = ?";
+
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userId);

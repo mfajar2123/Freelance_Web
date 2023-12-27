@@ -1,10 +1,45 @@
 <?php
-    session_start();
-        if (!isset($_SESSION['user_id'])) {
-                header("Location: login.php");
-                exit();
+session_start();
+
+// Check if user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Include the configuration file
+include 'config.php';
+
+// Retrieve user role from the database
+$userId = $_SESSION['user_id'];
+$roleSql = "SELECT role FROM users WHERE id = ?";
+$roleStmt = $conn->prepare($roleSql);
+$roleStmt->bind_param("i", $userId);
+$roleStmt->execute();
+$roleResult = $roleStmt->get_result();
+
+// Check if the role is 'klien'
+if ($roleResult->num_rows > 0) {
+    $userRole = $roleResult->fetch_assoc()['role'];
+    if ($userRole !== 'admin') {
+        // Redirect to a different page or show an error message
+        header("Location: unauthorized.php"); // Replace 'unauthorized.php' with the page you want to redirect unauthorized users to
+        exit();
+    }
+} else {
+    // Handle the case where user information is not found
+    header("Location: login.php");
+    exit();
             }
+                    include 'config.php';
+
+$userId = $_SESSION['user_id'];
+$countSql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE user_id = $userId AND is_read = 0";
+$countResult = $conn->query($countSql);
+$rowCount = $countResult->fetch_assoc();
+$unreadCount = $rowCount['unread_count'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -516,7 +551,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">List Order</h4>
-                                    <a href="add_order.php" class="btn btn-info btn-sm">Add</a>
+                                  
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

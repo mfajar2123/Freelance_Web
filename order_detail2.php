@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Explore</a>
+                        <a class="nav-link active" href="dashboard.php">Explore</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -93,12 +93,8 @@ if ($result->num_rows > 0) {
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="riwayat_order.php">Orders</a></li>
-                            <li><a class="dropdown-item" href="#">Messages</a></li>
-                            <li><a class="dropdown-item" href="#">Notifications</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            
+                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -112,60 +108,71 @@ if ($result->num_rows > 0) {
 
     <div class="container mt-4">
         <div class="row">
-            <!-- Profile Section -->
-            <div class="col-md-12">
-
-                <div class="profile-section">
-                    <div class="job-title">
-                        <span><?= $pekerjaan[0]['jenis_pekerjaan'] ?></span>
-                    </div>
-                    <div class="d-flex align-items-center">
-
-                        <!-- Profile image -->
-                        <img src="./assets/img/<?= $pekerjaan[0]['foto_profil'] ?>" alt="Profile Image"
-                            class="profile-img">
-                        <!-- Profile information -->
-                        <div class="profile-info">
-                            <div class="profile-name"><?= $pekerjaan[0]['name'] ?></div>
-                            <div class="profile-title">Indonesia</div>
+            <!-- Profile Section start -->
+                <div class="col-md-12">
+                    <div class="profile-section d-flex justify-content-between">
+                        <div>
+                            <div class="mb-5 d-flex">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <h2><b>  <?= $pekerjaan[0]['jenis_pekerjaan'] ?> </b></h2>
+                                    <h5>Rp <?= $pekerjaan[0]['harga'] ?></h5>
+                                </div>
+                            </div>
+                            <div class="job-title">
+                                <p class="fs-6"> <?= $pekerjaan[0]['deskripsi_order'] ?> </p>
+                            </div>
                         </div>
 
-                    </div>
-                    <!-- Additional profile details -->
-                    <div class="mt-3">
-                        <!-- <h5>Mastering English and German for seamless communication</h5> -->
-                        <p>Silahkan order dengan mendeskripsikan secara detail aplikasi yang anda inginkan :)</p>
-                        <p>Jika bingung atau butuh konsultasi, klik tombol kontak di bawah!</p>
-                    </div>
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <!-- Profile image -->
+                                <img src="./assets/img/users/<?= $pekerjaan[0]['foto_profil'] ?>" alt="Profile Image"
+                                    class="profile-img">
+                                <!-- Profile information -->
+                                <div class="profile-info">
+                                    <div class="profile-name"><?= $pekerjaan[0]['name'] ?></div>
+                                    <div class="profile-title">Indonesia</div>
+                                </div>
 
-                    <!-- Buttons -->
-                    <div class="d-grid gap-2">
-                        <a href="https://api.whatsapp.com/send?phone=62<?= $pekerjaan[0]['nohp'] ?>" class="btn btn-primary mt-3" target="_blank">Contact me
-                            (Whatsapp)</a>
+                            </div>
+                            <!-- Additional profile details -->
+                            <!-- <div class="mt-3">
+                                <p>Silahkan order dengan mendeskripsikan secara detail aplikasi yang anda inginkan :)</p>
+                                <p>Jika bingung atau butuh konsultasi, klik tombol kontak di bawah!</p>
+                            </div> -->
 
-                        <button class="btn btn-success mt-2" data-bs-toggle="modal"
-                            data-bs-target="#orderModal">Continue to Order</button>
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2">
+                            <a href="https://api.whatsapp.com/send?phone=62<?= $pekerjaan[0]['nohp'] ?>" class="btn btn-primary mt-3" target="_blank">
+    Contact me (Whatsapp)
+</a>
 
+                                <button class="btn btn-success mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#orderModal">Continue to Order</button>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <!-- Profile Section End -->
 
             <!-- Main Content Section -->
             <div class="col-md-12">
                 <!-- Order Info Section -->
-                <div class="order-info">
+                <!-- <div class="order-info">
                     <h4>About this Gig</h4>
                     <p><?= $pekerjaan[0]['deskripsi_order'] ?></p>
-                    <!-- Add more details about the gig as needed -->
-                </div>
+                    Add more details about the gig as needed
+                </div> -->
 
                 <!-- Portfolio Section -->
                 <!-- Portfolio Section -->
                 <div class="portfolio-section">
-                    <h4>My Portfolio</h4>
+                    <h4>Freelancer's Portfolio</h4>
                     <!-- Add your portfolio projects with images and descriptions -->
-                    <img src="./assets/img/<?= $pekerjaan[0]['foto'] ?>" alt="Project 1" class="portfolio-img">
-                    <!-- <img src="./assets/img/<?= $pekerjaan[0]['foto'] ?>" alt="Project 2" class="portfolio-img"> -->
+                    <img src="./assets/img/<?= $pekerjaan[0]['foto'] ?>" alt="Project 1" class="portfolio-img" style="width: 100%; height: 200px; object-fit: cover;">
+
+                   
                     <!-- Add more portfolio items as needed -->
                 </div>
 

@@ -14,6 +14,7 @@ if ($result->num_rows == 1) {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_name'] = $user['name'];
     $_SESSION['user_foto'] = $user['foto_profil'];
+    $_SESSION['user_role']= $user['role'];
 
     // Check if the user is an admin
     if ($user['role'] == 'freelancer') {

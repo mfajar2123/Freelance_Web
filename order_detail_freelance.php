@@ -6,10 +6,12 @@ if (isset($_GET['id'])) {
     $orderId = $_GET['id'];
 
     // Query untuk mendapatkan detail order berdasarkan id_order
-    $query = "SELECT order_table.*, users.name as klien_name
-              FROM order_table 
-              JOIN users ON order_table.klien_id = users.id
-              WHERE order_table.id_order = ?";
+    $query = "SELECT order_table.*, users.name AS klien_name, pembayaran.bukti_pembayaran
+          FROM order_table 
+          JOIN users ON order_table.klien_id = users.id
+          LEFT JOIN pembayaran ON order_table.id_order = pembayaran.id_order
+          WHERE order_table.id_order = ?";
+
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $orderId);
     $stmt->execute();
@@ -64,6 +66,16 @@ if (isset($_GET['id'])) {
                         <div class="col-md-12">
                              <label class="labels">File</label>
                              <h5><a href="./assets/img/<?= $orderDetail['file'] ?>" download><?= $orderDetail['file'] ?></a></h5>
+                        </div><br>
+                        <div class="col-md-12">
+                            <label class="labels"><h5>Bukti Pembayaran</h5></label>
+                            <?php if (!empty($orderDetail['bukti_pembayaran'])) : ?>
+                                <a href="./assets/img/pembayaran/<?= $orderDetail['bukti_pembayaran'] ?>" download>
+                                    <img src="./assets/img/pembayaran/<?= $orderDetail['bukti_pembayaran'] ?>" alt="Bukti Pembayaran" style="max-width: 80%;">
+                                </a>
+                            <?php else : ?>
+                                <p>No payment proof available</p>
+                            <?php endif; ?>
                         </div><br>
                         <div class="col-md-12">
                              <label class="labels">Status</label>

@@ -1,27 +1,58 @@
 <?php
-// Pastikan ID pekerjaan disediakan melalui parameter GET
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include 'config.php';
+
 if (isset($_GET['id_pekerjaan'])) {
     $id_pekerjaan = $_GET['id_pekerjaan'];
 
-    // Koneksi ke database
-    include 'config.php';
+    try {
+        // Mulai transaksi
+        $conn->begin_transaction();
 
-    // Query untuk menghapus pekerjaan berdasarkan ID
-    $delete_query = "DELETE FROM pekerjaan WHERE id_pekerjaan = $id_pekerjaan";
+        // 1. Hapus data dari tabel pembayaran yang terkait
+        $deletePembayaranQuery = "DELETE FROM pembayaran 
+                                  WHERE id_order IN (SELECT id_order FROM order_table WHERE id_pekerjaan = ?)";
+        $stmtPembayaran = $conn->prepare($deletePembayaranQuery);
+        $stmtPembayaran->bind_param("i", $id_pekerjaan);
+        $stmtPembayaran->execute();
 
-    if ($conn->query($delete_query) === TRUE) {
-        // Redirect kembali ke halaman pekerjaan setelah penghapusan berhasil
+        // 2. Hapus data dari tabel order_table
+        $deleteOrderQuery = "DELETE FROM order_table 
+                             WHERE id_pekerjaan = ?";
+        $stmtOrder = $conn->prepare($deleteOrderQuery);
+        $stmtOrder->bind_param("i", $id_pekerjaan);
+        $stmtOrder->execute();
+
+        // 3. Hapus data dari tabel pekerjaan
+        $deletePekerjaanQuery = "DELETE FROM pekerjaan 
+                                 WHERE id_pekerjaan = ?";
+        $stmtPekerjaan = $conn->prepare($deletePekerjaanQuery);
+        $stmtPekerjaan->bind_param("i", $id_pekerjaan);
+        $stmtPekerjaan->execute();
+
+        // Commit transaksi jika semua query berhasil
+        $conn->commit();
+
+        // Redirect ke dashboard atau halaman lainnya
         header("Location: dashboardfreelance.php");
         exit();
-    } else {
-        echo "Error deleting record: " . $conn->error;
+    } catch (mysqli_sql_exception $exception) {
+        // Rollback transaksi jika terjadi kesalahan
+        $conn->rollback();
+        
+        // Handle error
+        echo "Error deleting job: " . $exception->getMessage();
     }
-
-    // Tutup koneksi database
-    $conn->close();
 } else {
-    // Redirect jika ID pekerjaan tidak tersedia
-    header("Location: dashboardfreelance.php");
-    exit();
+    // Handle invalid request
+    echo "Invalid request.";
 }
+
+$conn->close();
 ?>
