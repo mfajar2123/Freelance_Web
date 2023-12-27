@@ -12,11 +12,8 @@ include 'config.php';
 
 // Retrieve user role from the database
 $userId = $_SESSION['user_id'];
-$roleSql = "SELECT role FROM users WHERE id = ?";
-$roleStmt = $conn->prepare($roleSql);
-$roleStmt->bind_param("i", $userId);
-$roleStmt->execute();
-$roleResult = $roleStmt->get_result();
+$roleSql = "SELECT role FROM users WHERE id = {$userId}";
+$roleResult = mysqli_query($conn, $roleSql);
 
 // Check if the role is 'klien'
 if ($roleResult->num_rows > 0) {
@@ -79,13 +76,14 @@ $unreadCount = $rowCount['unread_count'];
                         <a href="tambahpekerjaan.php" class="btn btn-primary">Tambah Pekerjaan</a>
                     </li>
                     <li class="nav-item position-relative">
-                        <a class="nav-link" href="freelancer_notifications.php?id_user=<?php echo $_SESSION['user_id']; ?>">
+                        <a class="nav-link"
+                            href="freelancer_notifications.php?id_user=<?php echo $_SESSION['user_id']; ?>">
                             <div class="d-flex flex-column align-items-center position-relative">
                                 <?php if ($unreadCount > 0) { ?>
-                                    <span class="badge badge-danger position-absolute top-10 start-60 translate-middle-y">
-                                        <?php echo $unreadCount; ?>
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
+                                <span class="badge badge-danger position-absolute top-10 start-60 translate-middle-y">
+                                    <?php echo $unreadCount; ?>
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
                                 <?php } ?>
                                 <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
                             </div>
@@ -156,7 +154,8 @@ $unreadCount = $rowCount['unread_count'];
                                 <a href="update_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>"
                                     class="btn btn-primary" style="background-color: rgba(1, 4, 136, 0.9);">Edit</a>
                                 <a href="process_delete_pekerjaan.php?id_pekerjaan=<?= $row['id_pekerjaan'] ?>"
-                                    class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this job?')">Delete</a>
+                                    class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this job?')">Delete</a>
                             </div>
                         </div>
                     </div>

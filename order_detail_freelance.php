@@ -10,13 +10,10 @@ if (isset($_GET['id'])) {
     FROM order_table 
     JOIN users ON order_table.klien_id = users.id
     LEFT JOIN pembayaran ON order_table.id_order = pembayaran.id_order
-    WHERE order_table.id_order = ?";
+    WHERE order_table.id_order = {$orderId}";
 
 
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $orderId);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $result=mysqli_query($conn, $query);
 
     if ($result->num_rows > 0) {
         $orderDetail = $result->fetch_assoc();
@@ -141,7 +138,7 @@ if (isset($_GET['id'])) {
         echo "Order tidak ditemukan.";
     }
 
-    $stmt->close();
+    
     $conn->close();
 } else {
     echo "ID Order tidak valid.";

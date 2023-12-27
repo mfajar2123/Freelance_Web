@@ -8,13 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_id']) && isset($
 
     // Lakukan validasi atau sanitasi data jika diperlukan
 
-    // Lakukan koneksi ke basis data
     // Lakukan perubahan pada kolom deskripsi_order untuk order_id yang diberikan
-    $query = "UPDATE order_table SET deskripsi_order = ? WHERE id_order = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("si", $deskripsiOrder, $orderId);
+    $query = "UPDATE order_table SET deskripsi_order = '$deskripsiOrder' WHERE id_order = $orderId";
 
-    if ($stmt->execute()) {
+    if ($conn->query($query) === TRUE) {
         // Jika perubahan berhasil disimpan, redirect ke halaman riwayat_order.php
         header("Location: riwayat_order.php");
         exit();
@@ -23,11 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_id']) && isset($
         echo "Gagal menyimpan perubahan.";
     }
 
-    $stmt->close();
     $conn->close();
 } else {
     // Redirect jika data yang diberikan tidak lengkap atau tidak valid
     header("Location: riwayat_order.php");
     exit();
 }
+
 ?>

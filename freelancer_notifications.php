@@ -1,15 +1,15 @@
 <?php
-// Koneksi ke database (contoh menggunakan mysqli)
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "freelance_web";
-
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+include 'config.php';
 // Ganti $userId dengan id user yang sedang aktif
 
 $userId = $_GET['id_user']; // Contoh penggunaan id user
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+
 
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);

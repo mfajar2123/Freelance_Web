@@ -17,24 +17,18 @@ if (isset($_GET['id_pekerjaan'])) {
 
         // 1. Hapus data dari tabel pembayaran yang terkait
         $deletePembayaranQuery = "DELETE FROM pembayaran 
-                                  WHERE id_order IN (SELECT id_order FROM order_table WHERE id_pekerjaan = ?)";
-        $stmtPembayaran = $conn->prepare($deletePembayaranQuery);
-        $stmtPembayaran->bind_param("i", $id_pekerjaan);
-        $stmtPembayaran->execute();
+                                  WHERE id_order IN (SELECT id_order FROM order_table WHERE id_pekerjaan = $id_pekerjaan)";
+        $conn->query($deletePembayaranQuery);
 
         // 2. Hapus data dari tabel order_table
         $deleteOrderQuery = "DELETE FROM order_table 
-                             WHERE id_pekerjaan = ?";
-        $stmtOrder = $conn->prepare($deleteOrderQuery);
-        $stmtOrder->bind_param("i", $id_pekerjaan);
-        $stmtOrder->execute();
+                             WHERE id_pekerjaan = $id_pekerjaan";
+        $conn->query($deleteOrderQuery);
 
         // 3. Hapus data dari tabel pekerjaan
         $deletePekerjaanQuery = "DELETE FROM pekerjaan 
-                                 WHERE id_pekerjaan = ?";
-        $stmtPekerjaan = $conn->prepare($deletePekerjaanQuery);
-        $stmtPekerjaan->bind_param("i", $id_pekerjaan);
-        $stmtPekerjaan->execute();
+                                 WHERE id_pekerjaan = $id_pekerjaan";
+        $conn->query($deletePekerjaanQuery);
 
         // Commit transaksi jika semua query berhasil
         $conn->commit();
@@ -53,6 +47,7 @@ if (isset($_GET['id_pekerjaan'])) {
     // Handle invalid request
     echo "Invalid request.";
 }
+
 
 $conn->close();
 ?>

@@ -1,15 +1,7 @@
 <?php
 session_start(); // Pastikan session telah dimulai sebelum menggunakan $_SESSION
 
-// Lakukan koneksi ke database di sini
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "freelance_Web";
-
-// Buat koneksi
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+include 'config.php';
 // Periksa koneksi
 if ($conn->connect_error) {
     die("Koneksi Gagal: " . $conn->connect_error);
@@ -19,19 +11,14 @@ if ($conn->connect_error) {
 if (isset($_GET['id'])) {
     $notif_id = $_GET['id'];
 
-    // Lakukan pembaruan status notifikasi dengan prepared statement untuk menghindari SQL Injection
-    $sql = "UPDATE notifications SET is_read = 1 WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $notif_id); // "i" menandakan tipe data integer
+    
+    $sql = "UPDATE notifications SET is_read = 1 WHERE id = $notif_id";
 
-    if ($stmt->execute()) {
+    if ($conn->query($sql) === TRUE) {
         // Ambil data notifikasi untuk mengecek notification_type
-        $select_sql = "SELECT notification_type FROM notifications WHERE id = ?";
-        $select_stmt = $conn->prepare($select_sql);
-        $select_stmt->bind_param("i", $notif_id);
-        $select_stmt->execute();
-        $result = $select_stmt->get_result();
-        
+        $select_sql = "SELECT notification_type FROM notifications WHERE id = $notif_id";
+        $result = $conn->query($select_sql);
+
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $notification_type = $row['notification_type'];
@@ -48,15 +35,13 @@ if (isset($_GET['id'])) {
         } else {
             echo "Data notifikasi tidak ditemukan";
         }
-
-        $select_stmt->close();
     } else {
         echo "Error updating record: " . $conn->error;
     }
-    $stmt->close();
 } else {
     echo "ID notifikasi tidak ditemukan";
 }
+
 
 $conn->close();
 ?>

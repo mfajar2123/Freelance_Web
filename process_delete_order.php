@@ -9,28 +9,23 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['order_id'])) {
     // Lakukan validasi atau sanitasi data jika diperlukan
 
     // Ambil id pekerjaan terkait order yang akan dihapus
-    $queryGetPekerjaan = "SELECT id_pekerjaan FROM order_table WHERE id_order = ?";
-    $stmtGetPekerjaan = $conn->prepare($queryGetPekerjaan);
-    $stmtGetPekerjaan->bind_param("i", $orderId);
-    $stmtGetPekerjaan->execute();
-    $resultGetPekerjaan = $stmtGetPekerjaan->get_result();
+    $queryGetPekerjaan = "SELECT id_pekerjaan FROM order_table WHERE id_order = {$orderId}";
+    $resultGetPekerjaan = mysqli_query($conn, $queryGetPekerjaan);
 
     if ($resultGetPekerjaan->num_rows > 0) {
         $row = $resultGetPekerjaan->fetch_assoc();
         $idPekerjaan = $row['id_pekerjaan'];
 
         // Hapus pesanan dengan order_id yang diberikan
-        $queryDeleteOrder = "DELETE FROM order_table WHERE id_order = ?";
-        $stmtDeleteOrder = $conn->prepare($queryDeleteOrder);
-        $stmtDeleteOrder->bind_param("i", $orderId);
+        $queryDeleteOrder = "DELETE FROM order_table WHERE id_order = {$orderId}";
+        
 
-        if ($stmtDeleteOrder->execute()) {
+        if ($stmtDeleteOrder=mysqli_query($conn, $queryDeleteOrder)) {
             // Jika penghapusan berhasil, ubah status_pekerjaan menjadi 'belum dipesan'
-            $queryUpdateStatus = "UPDATE pekerjaan SET status_pekerjaan = 'belum dipesan' WHERE id_pekerjaan = ?";
-            $stmtUpdateStatus = $conn->prepare($queryUpdateStatus);
-            $stmtUpdateStatus->bind_param("i", $idPekerjaan);
+            $queryUpdateStatus = "UPDATE pekerjaan SET status_pekerjaan = 'belum dipesan' WHERE id_pekerjaan = {$idPekerjaan}";
             
-            if ($stmtUpdateStatus->execute()) {
+            
+            if ($stmtUpdateStatus=mysqli_query($conn, $queryUpdateStatus)) {
                 // Kembali ke halaman riwayat_order.php
                 header("Location: riwayat_order.php");
                 exit();
@@ -47,9 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['order_id'])) {
         exit();
     }
 
-    $stmtGetPekerjaan->close();
-    $stmtDeleteOrder->close();
-    $stmtUpdateStatus->close();
+    
     $conn->close();
 } else {
     // Redirect jika data yang diberikan tidak lengkap atau tidak valid

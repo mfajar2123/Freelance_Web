@@ -42,32 +42,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $file = $_FILES["fileBuktiBayar"]["name"];
 $metodePembayaran = $_POST['metodePembayaran']; // Menangkap pilihan metode pembayaran dari form
 
-$queryInsertPayment = "INSERT INTO pembayaran (id_order, metode_pembayaran, bukti_pembayaran) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($queryInsertPayment);
-$stmt->bind_param("sss", $idOrder, $metodePembayaran, $file); 
-    if ($stmt->execute()) {
-        $queryUpdateOrderStatus = "UPDATE order_table SET status = 'Dalam Pengerjaan' WHERE id_order = ?";
-        $stmtUpdateOrderStatus = $conn->prepare($queryUpdateOrderStatus);
-        $stmtUpdateOrderStatus->bind_param("i", $idOrder);
+$queryInsertPayment = "INSERT INTO pembayaran (id_order, metode_pembayaran, bukti_pembayaran) VALUES ('{$idOrder}', '{$metodePembayaran}', '{$file}')";
+ 
+    if ($stmt=mysqli_query($conn, $queryInsertPayment)) {
+        
+        $queryUpdateOrderStatus = "UPDATE order_table SET status = 'Dalam Pengerjaan' WHERE id_order = {$idOrder}";
+       
 
-        if ($stmtUpdateOrderStatus->execute()) {
-            $stmtUpdateOrderStatus->close();
+        if ($stmtUpdateOrderStatus=mysqli_query($conn,$queryUpdateOrderStatus)) {
+            
 
-            $queryGetJobId = "SELECT id_pekerjaan FROM order_table WHERE id_order = ?";
-            $stmtGetJobId = $conn->prepare($queryGetJobId);
-            $stmtGetJobId->bind_param("i", $idOrder);
-            $stmtGetJobId->execute();
-            $resultGetJobId = $stmtGetJobId->get_result();
+            $queryGetJobId = "SELECT id_pekerjaan FROM order_table WHERE id_order = {$idOrder}";
+            $resultGetJobId = mysqli_query($conn, $queryGetJobId);
+            
+            
 
             if ($resultGetJobId->num_rows > 0) {
                 $row = $resultGetJobId->fetch_assoc();
                 $idPekerjaan = $row['id_pekerjaan'];
 
-                $queryGetFreelancerId = "SELECT freelancer_id FROM pekerjaan WHERE id_pekerjaan = ?";
-                $stmtGetFreelancerId = $conn->prepare($queryGetFreelancerId);
-                $stmtGetFreelancerId->bind_param("i", $idPekerjaan);
-                $stmtGetFreelancerId->execute();
-                $resultGetFreelancerId = $stmtGetFreelancerId->get_result();
+                $queryGetFreelancerId = "SELECT freelancer_id FROM pekerjaan WHERE id_pekerjaan = {$idPekerjaan}";
+                $resultGetFreelancerId=mysqli_query($conn, $queryGetFreelancerId);
+                
 
                 if ($resultGetFreelancerId->num_rows > 0) {
                     $rowFreelancer = $resultGetFreelancerId->fetch_assoc();
@@ -76,18 +72,17 @@ $stmt->bind_param("sss", $idOrder, $metodePembayaran, $file);
                     $notificationTypeFreelancer = "Ada Order Baru nich";
                     $messageFreelancer = "Ada yang memesan jasa kamu, ayo cek!";
 
-                    $queryInsertNotificationFreelancer = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0)";
-                    $stmtNotificationFreelancer = $conn->prepare($queryInsertNotificationFreelancer);
-                    $stmtNotificationFreelancer->bind_param("iss", $freelancerId, $notificationTypeFreelancer, $messageFreelancer);
+                    $queryInsertNotificationFreelancer = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES ('{$freelancerId}', '{$notificationTypeFreelancer}','{$messageFreelancer}', CURRENT_TIMESTAMP, 0)";
+                    
 
-                    if ($stmtNotificationFreelancer->execute()) {
+                    if ($stmtNotificationFreelancer=mysqli_query($conn, $queryInsertNotificationFreelancer)) {
                         // Notifikasi kepada freelancer berhasil disimpan
                     } else {
                         // Gagal menyimpan notifikasi kepada freelancer
-                        echo "Gagal menyimpan notifikasi kepada freelancer: " . $stmtNotificationFreelancer->error;
+                        echo "Gagal menyimpan notifikasi kepada freelancer: " . mysqli_error($conn);
                     }
 
-                    $stmtNotificationFreelancer->close();
+                   
                 } else {
                     echo "Tidak ada data freelancer_id";
                 }
@@ -95,25 +90,22 @@ $stmt->bind_param("sss", $idOrder, $metodePembayaran, $file);
                 echo "Tidak ada data id_pekerjaan";
             }
 
-            $stmtGetJobId->close();
-            $stmtGetFreelancerId->close();
+            
 
             $user_id = $_SESSION['user_id'];
             $notification_type = "Order Selesai";
             $message = "Terima kasih sudah melakukan pembayaran.";
 
-            $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0)";
-            $stmtNotification = $conn->prepare($queryInsertNotification);
-            $stmtNotification->bind_param("iss", $user_id, $notification_type, $message);
+            $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES ( '{$user_id}', '{$notification_type}', '{$message}', CURRENT_TIMESTAMP, 0)";
+            
 
-            if ($stmtNotification->execute()) {
+            if ($stmtNotification=mysqli_query($conn, $queryInsertNotification)) {
                 // Notifikasi status selesai berhasil disimpan
             } else {
                 // Gagal menyimpan notifikasi status selesai
-                echo "Gagal menyimpan notifikasi status selesai: " . $stmtNotification->error;
-            }
+                echo "Gagal menyimpan notifikasi status selesai: " . mysqli_error($conn);}
 
-            $stmtNotification->close();
+          
             header("Location: ringkasan_pembayaran.php?id_order=$idOrder");
             exit();
         } else {
@@ -123,7 +115,7 @@ $stmt->bind_param("sss", $idOrder, $metodePembayaran, $file);
         echo "Error: Gagal menyimpan pembayaran - " . $conn->error;
     }
 
-    $stmt->close();
+   
     $conn->close();
 }
 ?>

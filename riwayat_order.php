@@ -14,12 +14,10 @@ if(isset($_SESSION['user_id'])) {
           INNER JOIN users ON order_table.klien_id = users.id 
           INNER JOIN pekerjaan ON order_table.id_pekerjaan = pekerjaan.id_pekerjaan
           INNER JOIN users AS freelancer ON pekerjaan.freelancer_id = freelancer.id
-          WHERE users.id = ?";
+          WHERE users.id = {$userId}";
+          $result = mysqli_query($conn, $query);
     
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    
     
     if ($result->num_rows > 0) {
         // Memulai konten HTML
@@ -189,7 +187,7 @@ if(isset($_SESSION['user_id'])) {
         echo "Tidak ada data yang ditemukan.";
     }
 
-    $stmt->close();
+   
 } else {
     echo "User ID tidak ditemukan.";
 }

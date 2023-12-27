@@ -12,11 +12,9 @@ include 'config.php';
 
 // Retrieve user role from the database
 $userId = $_SESSION['user_id'];
-$roleSql = "SELECT role FROM users WHERE id = ?";
-$roleStmt = $conn->prepare($roleSql);
-$roleStmt->bind_param("i", $userId);
-$roleStmt->execute();
-$roleResult = $roleStmt->get_result();
+$roleSql = "SELECT role FROM users WHERE id = {$userId}";
+$roleResult = mysqli_query($conn, $roleSql);
+
 
 // Check if the role is 'klien'
 if ($roleResult->num_rows > 0) {
@@ -31,7 +29,7 @@ if ($roleResult->num_rows > 0) {
     header("Location: login.php");
     exit();
             }
-                    include 'config.php';
+    include 'config.php';
 
 $userId = $_SESSION['user_id'];
 $countSql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE user_id = $userId AND is_read = 0";
@@ -551,7 +549,7 @@ $unreadCount = $rowCount['unread_count'];
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">List Order</h4>
-                                  
+
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

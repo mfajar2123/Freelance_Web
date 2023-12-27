@@ -87,48 +87,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Prepare dan bind parameter untuk query
-    $queryInsertOrder = "INSERT INTO order_table (deskripsi_order, klien_id, id_pekerjaan, `file`) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($queryInsertOrder);
-    $stmt->bind_param("siss", $deskripsiOrder, $klienId, $idPekerjaan, $file);
+   
+    $queryInsertOrder = "INSERT INTO order_table (deskripsi_order, klien_id, id_pekerjaan, `file`) VALUES ('$deskripsiOrder', $klienId, $idPekerjaan, '$file')";
 
-    if ($stmt->execute()) {
-        $lastOrderId = $conn->insert_id;
-        // Ubah status_pekerjaan menjadi 'sudah dipesan'
-        $queryUpdateStatus = "UPDATE pekerjaan SET status_pekerjaan = 'sudah dipesan' WHERE id_pekerjaan = ?";
-        $stmtUpdate = $conn->prepare($queryUpdateStatus);
-        $stmtUpdate->bind_param("i", $idPekerjaan);
+if ($conn->query($queryInsertOrder) === TRUE) {
+    $lastOrderId = $conn->insert_id;
+    // Ubah status_pekerjaan menjadi 'sudah dipesan'
+    $queryUpdateStatus = "UPDATE pekerjaan SET status_pekerjaan = 'sudah dipesan' WHERE id_pekerjaan = $idPekerjaan";
 
-        if ($stmtUpdate->execute()) {
-            // Jika berhasil mengubah status_pekerjaan, redirect ke halaman pembayaran
-            $user_id = $_SESSION['user_id'];
-            $notification_type = "Order Berhasil";
-            $message = "Pesanan Anda berhasil dipesan, silahkan lakukan pembayaran!";
-        
-            // Menyimpan notifikasi status selesai ke dalam tabel notifications
-            $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES (?, ?, ?, CURRENT_TIMESTAMP, 0)";
-            $stmtNotification = $conn->prepare($queryInsertNotification);
-            $stmtNotification->bind_param("iss", $user_id, $notification_type, $message);
-        
-            if ($stmtNotification->execute()) {
-                // Notifikasi status selesai berhasil disimpan ke dalam tabel notifications
-            } else {
-                // Gagal menyimpan notifikasi status selesai
-                echo "Gagal menyimpan notifikasi status selesai: " . $stmtNotification->error;
-            }
-        
-            $stmtNotification->close();
+    if ($conn->query($queryUpdateStatus) === TRUE) {
+        // Jika berhasil mengubah status_pekerjaan, redirect ke halaman pembayaran
+        $user_id = $_SESSION['user_id'];
+        $notification_type = "Order Berhasil";
+        $message = "Pesanan Anda berhasil dipesan, silahkan lakukan pembayaran!";
+    
+        // Menyimpan notifikasi status selesai ke dalam tabel notifications
+        $queryInsertNotification = "INSERT INTO notifications (user_id, notification_type, message, created_at, is_read) VALUES ($user_id, '$notification_type', '$message', CURRENT_TIMESTAMP, 0)";
+
+        if ($conn->query($queryInsertNotification) === TRUE) {
+            // Notifikasi status selesai berhasil disimpan ke dalam tabel notifications
             header("Location: halaman_pembayaran.php?order_id=$lastOrderId");
             exit();
         } else {
-            echo "Gagal mengubah status pekerjaan.";
+            // Gagal menyimpan notifikasi status selesai
+            echo "Gagal menyimpan notifikasi status selesai: " . $conn->error;
             exit();
         }
     } else {
-        echo "Error: " . $queryInsertOrder . "<br>" . $conn->error;
+        echo "Gagal mengubah status pekerjaan.";
+        exit();
     }
+} else {
+    echo "Error: " . $queryInsertOrder . "<br>" . $conn->error;
+}
 
-    $stmt->close();
 
     // Tambahkan logic notifikasi setelah order berhasil dimasukkan ke database
 
