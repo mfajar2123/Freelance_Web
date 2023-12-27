@@ -161,16 +161,14 @@ border-top: 1px solid #e6e6e6;
 
     .badge {
         position: absolute;
-        top: 5px; /* Membuat jarak dari atas */
-        right: 5px; /* Membuat jarak dari kanan */
+        top: -8px;
+        right: -8px;
         padding: 5px 8px;
         border-radius: 50%;
         background-color: #ff0000;
         color: #fff;
         font-size: 12px;
     }
-    
-    
 
 
 

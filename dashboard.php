@@ -53,6 +53,8 @@ $unreadCount = $rowCount['unread_count'];
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 </head>
@@ -73,10 +75,10 @@ $unreadCount = $rowCount['unread_count'];
                         <a class="nav-link" href="tes_notif.php?id_user=<?php echo $_SESSION['user_id']; ?>">
                             <div class="d-flex flex-column align-items-center position-relative">
                                 <?php if ($unreadCount > 0) { ?>
-                                    <span class="badge badge-danger position-absolute top-0 start-60 translate-middle-x">
-                                        <?php echo $unreadCount; ?>
-                                        <span class="visually-hidden">unread messages</span>
-                                    </span>
+                                <span class="badge badge-danger position-absolute top-0 start-60 translate-middle-x">
+                                    <?php echo $unreadCount; ?>
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
                                 <?php } ?>
                                 <i class="fas fa-bell" style="font-size: 24px; color: #000000;"></i>
                             </div>
@@ -119,11 +121,12 @@ $unreadCount = $rowCount['unread_count'];
                     </div>
                     <div class="ms-4">
                         <h2 style="color: white;"><b>Cari Proyek, Temukan Bakat, Semua bisa di TalentaHub!</b></h2>
-                        <p style="color: white;">Di TalentaHub kita semua satu tim! Temukan proyek seru, kembangkan bakat, dan raih kesempatan freelance yang menanti. </p>
+                        <p style="color: white;">Di TalentaHub kita semua satu tim! Temukan proyek seru, kembangkan
+                            bakat, dan raih kesempatan freelance yang menanti. </p>
                         <!-- <input type="button" value="Cari tau lebih lanjut" class="btn" style="color: white; background-color: #78D6C6;"> -->
                     </div>
                 </div>
-                
+
                 <div class="container">
                     <div class="row " id="services">
                         <!-- Di sini kartu-kartu pekerjaan akan dimuat oleh JavaScript -->

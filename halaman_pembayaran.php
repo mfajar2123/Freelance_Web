@@ -79,7 +79,7 @@ if ($result->num_rows > 0) {
     /* Add your custom styles here */
     body {
         font-family: Arial, sans-serif;
-        background-color: rgba(1, 4, 136, 0.9);
+        background-color: #78D6C6;
     }
 
     .payment-container {
@@ -207,6 +207,21 @@ if ($result->num_rows > 0) {
         box-shadow: 0px 0px 5px rgba(29, 191, 115, 0.3);
         /* Efek shadow untuk highlight */
     }
+
+    .payment-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .payment-btn div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
     </style>
 </head>
 
@@ -227,44 +242,68 @@ if ($result->num_rows > 0) {
             <p>Nomor HP untuk Transfer: <strong><?= $order[0]['harga'] ?></strong></p>
         </div>
 
-        <div class="payment-methods">
-            <!-- Metode Pembayaran -->
-            <div class="payment-method" id="gopay">
-                <img src="https://via.placeholder.com/50" alt="GoPay Logo">
-                <span>Bayar dengan GoPay</span>
-            </div>
-            <div class="payment-method" id="ovo">
-                <img src="https://via.placeholder.com/50" alt="OVO Logo">
-                <span>Bayar dengan OVO</span>
-            </div>
-            <div class="payment-method" id="dana">
-                <img src="https://via.placeholder.com/50" alt="DANA Logo">
-                <span>Bayar dengan DANA</span>
-            </div>
-            <div class="payment-method" id="shopeepay">
-                <img src="https://via.placeholder.com/50" alt="ShopeePay Logo">
-                <span>Bayar dengan ShopeePay</span>
+        <form action="process_buktiPembayaran.php" method="POST" id="formBayar" enctype="multipart/form-data">
+            <div class="payment-methods">
+                <!-- Metode Pembayaran -->
+                <div class="payment-method" id="gopay">
+                    <label for="gopayRadio">
+                        <input type="radio" id="gopayRadio" name="metodePembayaran" value="GoPay">
+                        <img src="https://via.placeholder.com/50" alt="GoPay Logo">
+                        <span>Bayar dengan GoPay</span>
+                    </label>
+                </div>
+                <div class="payment-method" id="ovo">
+                    <label for="ovoRadio">
+                        <input type="radio" id="ovoRadio" name="metodePembayaran" value="OVO">
+                        <img src="https://via.placeholder.com/50" alt="OVO Logo">
+                        <span>Bayar dengan OVO</span>
+                    </label>
+                </div>
+                <div class="payment-method" id="dana">
+                    <label for="danaRadio">
+                        <input type="radio" id="danaRadio" name="metodePembayaran" value="DANA">
+                        <img src="https://via.placeholder.com/50" alt="DANA Logo">
+                        <span>Bayar dengan DANA</span>
+                    </label>
+                </div>
+                <div class="payment-method" id="shopeepay">
+                    <label for="shopeepayRadio">
+                        <input type="radio" id="shopeepayRadio" name="metodePembayaran" value="ShopeePay">
+                        <img src="https://via.placeholder.com/50" alt="ShopeePay Logo">
+                        <span>Bayar dengan ShopeePay</span>
+                    </label>
+                </div>
+
+                <!-- Tombol Upload Bukti Transfer -->
+
             </div>
 
-            <!-- Tombol Upload Bukti Transfer -->
+            <!-- ... Bagian HTML sebelumnya ... -->
+
             <div class="payment-btn">
-                <form action="process_buktiPembayaran.php" method="POST" id="formBayar" enctype="multipart/form-data">
+                <div>
                     <input type="hidden" name="idOrder" value="<?= $order[0]['id_order'] ?>">
+                    <label for="fileUpload" class="upload-btn">Upload Bukti Transfer</label>
                     <input type="file" name="fileBuktiBayar" class="upload-input" id="fileUpload">
-                </form>
-                <label for="fileUpload" class="upload-btn">Upload Bukti Transfer</label>
-                <button class="btn btn-pay" disabled>Bayar Sekarang</button>
-                <button class="btn btn-danger" id="removeFileBtn" style="display: none;">Hapus File</button>
+                </div>
+                <div>
 
-
+                    <button class="btn btn-pay" disabled>Bayar Sekarang</button>
+                </div>
 
             </div>
+
+            <!-- ... Bagian HTML setelahnya ... -->
+
+
             <div class="d-grid gap-2">
                 <a href="riwayat_order.php" class="btn btn-warning mt-3">Bayar Nanti</a>
             </div>
+        </form>
+        <br>
+        <button class="btn btn-danger" id="removeFileBtn" style="display: none; text-align:center;">Hapus File</button>
 
 
-        </div>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -343,18 +382,21 @@ if ($result->num_rows > 0) {
 
 
             // Handle 'Remove File' button click
+            // Handle 'Remove File' button click
             removeFileBtn.addEventListener('click', function() {
                 fileUpload.value = ''; // Reset the file input
                 btnPay.disabled = true; // Disable 'Bayar Sekarang' button
                 removeFileBtn.style.display = 'none'; // Hide 'Remove File' button
             });
+            //     // Tambahkan logika atau tindakan lainnya setelah penghapusan berhasil
+            // })
+            // .catch(error => {
+            //     console.error(error);
+            //     // Tambahkan penanganan kesalahan atau pesan untuk pengguna
+            // });
         });
         </script>
         </script>
-</body>
-
-</html>
-
 </body>
 
 </html>

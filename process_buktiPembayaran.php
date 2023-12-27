@@ -4,6 +4,7 @@ include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idOrder = $_POST['idOrder'];
+    $metodePembayaran = $_POST['metodePembayaran']; 
     
     $targetDirectory = __DIR__.'/assets/img/pembayaran/';
     $targetFile = $targetDirectory . basename($_FILES["fileBuktiBayar"]["name"]);
@@ -39,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $file = $_FILES["fileBuktiBayar"]["name"];
-        
-    $queryInsertPayment = "INSERT INTO pembayaran (id_order, bukti_pembayaran) VALUES (?, ?)";
-    $stmt = $conn->prepare($queryInsertPayment);
-    $stmt->bind_param("is", $idOrder, $file);
+$metodePembayaran = $_POST['metodePembayaran']; // Menangkap pilihan metode pembayaran dari form
 
+$queryInsertPayment = "INSERT INTO pembayaran (id_order, metode_pembayaran, bukti_pembayaran) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($queryInsertPayment);
+$stmt->bind_param("sss", $idOrder, $metodePembayaran, $file); 
     if ($stmt->execute()) {
         $queryUpdateOrderStatus = "UPDATE order_table SET status = 'Dalam Pengerjaan' WHERE id_order = ?";
         $stmtUpdateOrderStatus = $conn->prepare($queryUpdateOrderStatus);
